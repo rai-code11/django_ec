@@ -1,11 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from .models import ProductList
 
 # Create your views here.
 
 
-class ProductList(TemplateView):
-    template_name = "product_list/product_list.html"
-
-
-product_list = ProductList.as_view()
+# dbからidでデータを取ってくる
+def product_list_view(request):
+    p_key = ProductList.objects.in_bulk([1, 2, 3, 4, 5, 6, 7, 8])
+    return render(request, "product_list/product_list.html", {"p_key": p_key})
