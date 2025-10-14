@@ -1,4 +1,15 @@
+# WSGIサーバ用
+gunicorn==23.0.0
+
 Django==4.2.5
 django-environ==0.11.2
 psycopg==3.1.12
+
+# ImageField用
 pillow>=10.1,<12
+
+# 開発用に静的ファイルを配信するため
+whitenoise==6.7.0
+
+# cloudinary用
+django-cloudinary-storage==0.3.0
