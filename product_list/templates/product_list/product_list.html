@@ -17,7 +17,8 @@
       rel="stylesheet"
     />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="../../../static/product_list/styles.css" rel="stylesheet" />
+    {% load static %}
+    <link href="{% static 'product_list/styles.css' %}" rel="stylesheet" />
   </head>
   <body>
     <!-- Navigation-->
