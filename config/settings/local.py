@@ -27,3 +27,5 @@ DATABASES = {
         "TIME_ZONE": "Asia/Tokyo",
     }
 }
+
+INSTALLED_APPS.insert(0, "whitenoise.runserver_nostatic")
