@@ -30,7 +30,7 @@ DATABASES = {
 
 
 CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": env("hfofbwa6i"),
-    "API_KEY": env("426745189758217"),
-    "API_SECRET": env("ZFAlm2SWzAYte6ph4JCzkv50zGk"),
+    "CLOUD_NAME": env("CLOUD_NAME"),
+    "API_KEY": env("CLOUDINARY_API_KEY"),
+    "API_SECRET": env("CLOUDINARY_API_SECRET"),
 }
