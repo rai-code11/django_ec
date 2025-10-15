@@ -17,15 +17,7 @@ ALLOWED_HOSTS = [".herokuapp.com"]  # herokuapp.comドメインを許可
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "postgres",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
-        "HOST": "db",
-        "PORT": 5432,
-        "TIME_ZONE": "Asia/Tokyo",
-    }
+    "default": env.db(),
 }
 
 
