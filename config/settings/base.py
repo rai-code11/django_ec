@@ -7,6 +7,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 env = environ.Env()
 
+environ.Env.read_env(env_file=str(BASE_DIR) + "/.env")
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -87,6 +89,13 @@ USE_I18N = True
 
 USE_TZ = True
 
+# Database
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+DATABASES = {
+    "default": env.db(),
+}
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -95,7 +104,7 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-STORAGE = {
+STORAGES = {
     # 静的ファイル
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
@@ -111,6 +120,23 @@ STORAGE = {
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = env("SECRET_KEY")
+
 # media rootで画像の保存先を指定
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
+
+
+# Database
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+DATABASES = {
+    "default": env.db(),
+}
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": env("CLOUD_NAME"),
+    "API_KEY": env("CLOUDINARY_API_KEY"),
+    "API_SECRET": env("CLOUDINARY_API_SECRET"),
+}

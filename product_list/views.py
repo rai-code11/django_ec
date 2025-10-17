@@ -6,5 +6,7 @@ from .models import ProductList
 
 # dbからidでデータを取ってくる
 def product_list_view(request):
-    p_key = ProductList.objects.in_bulk([1, 2, 3, 4, 5, 6, 7, 8])
-    return render(request, "product_list/product_list.html", {"p_key": p_key})
+    product_list = ProductList.objects.all()
+    return render(
+        request, "product_list/product_list.html", {"product_list": product_list}
+    )
