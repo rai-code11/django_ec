@@ -1,0 +1,85 @@
+[
+  {
+    "model": "product_list.ProductList",
+
+    "fields": {
+      "id": 1,
+      "name": "test_product",
+      "price": 1000,
+      "image": "images/afurikaookonohazuku_kd1nx9.jpg"
+    }
+  },
+  {
+    "model": "product_list.ProductList",
+
+    "fields": {
+      "id": 2,
+      "name": "test_product",
+      "price": 1000,
+      "image": "images/bengaruwasimimizuku_bfqbh8.jpg"
+    }
+  },
+
+  {
+    "model": "product_list.ProductList",
+
+    "fields": {
+      "id": 3,
+      "name": "test_product",
+      "price": 1000,
+      "image": "images/kokinmefukurou_js2wnt.jpg"
+    }
+  },
+
+  {
+    "model": "product_list.ProductList",
+
+    "fields": {
+      "id": 4,
+      "name": "test_product",
+      "price": 1000,
+      "image": "images/morifukurou_qm3ndw.jpg"
+    }
+  },
+
+  {
+    "model": "product_list.ProductList",
+
+    "fields": {
+      "id": 5,
+      "name": "test_product",
+      "price": 1000,
+      "image": "images/menfukurou_jyyvfw.jpg"
+    }
+  },
+  {
+    "model": "product_list.ProductList",
+
+    "fields": {
+      "id": 6,
+      "name": "test_product",
+      "price": 1000,
+      "image": "images/simafukurou_snwpyk.jpg"
+    }
+  },
+  {
+    "model": "product_list.ProductList",
+
+    "fields": {
+      "id": 7,
+      "name": "test_product",
+      "price": 1000,
+      "image": "images/siberiawasimimizuku_qhvjwu.jpg"
+    }
+  },
+  {
+    "model": "product_list.ProductList",
+
+    "fields": {
+      "id": 8,
+      "name": "test_product",
+      "price": 1000,
+      "image": "images/sirofukurou_gfzdoo.jpg"
+    }
+  }
+]
