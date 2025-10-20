@@ -9,3 +9,7 @@ ALLOWED_HOSTS = ["*"]  # "*"に設定する
 
 
 INSTALLED_APPS.insert(0, "whitenoise.runserver_nostatic")
+
+# mediaファイルの設定
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "/media/"

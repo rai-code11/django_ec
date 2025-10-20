@@ -104,16 +104,6 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-STORAGES = {
-    # 静的ファイル
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-    # 画像アップロード
-    "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-    },
-}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -122,10 +112,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY")
-
-# media rootで画像の保存先を指定
-MEDIA_ROOT = BASE_DIR / "media"
-MEDIA_URL = "/media/"
 
 
 # Database
