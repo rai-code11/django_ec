@@ -6,7 +6,7 @@
       "id": 1,
       "name": "test_product",
       "price": 1000,
-      "image": "images/afurikaookonohazuku_kd1nx9.jpg"
+      "image": "images/afurikaookonohazuku_mrmry0"
     }
   },
   {
@@ -16,7 +16,7 @@
       "id": 2,
       "name": "test_product",
       "price": 1000,
-      "image": "images/bengaruwasimimizuku_bfqbh8.jpg"
+      "image": "images/kokinmefukurou_uxvdls"
     }
   },
 
@@ -27,7 +27,7 @@
       "id": 3,
       "name": "test_product",
       "price": 1000,
-      "image": "images/kokinmefukurou_js2wnt.jpg"
+      "image": "images/menfukurou_y79sbs"
     }
   },
 
@@ -38,7 +38,7 @@
       "id": 4,
       "name": "test_product",
       "price": 1000,
-      "image": "images/morifukurou_qm3ndw.jpg"
+      "image": "images/siberiawasimimizuku_bq1qmq"
     }
   },
 
@@ -49,7 +49,7 @@
       "id": 5,
       "name": "test_product",
       "price": 1000,
-      "image": "images/menfukurou_jyyvfw.jpg"
+      "image": "images/morifukurou_ukp5ky"
     }
   },
   {
@@ -59,7 +59,7 @@
       "id": 6,
       "name": "test_product",
       "price": 1000,
-      "image": "images/simafukurou_snwpyk.jpg"
+      "image": "images/sirofukurou_sq0bng"
     }
   },
   {
@@ -69,7 +69,7 @@
       "id": 7,
       "name": "test_product",
       "price": 1000,
-      "image": "images/siberiawasimimizuku_qhvjwu.jpg"
+      "image": "images/bengaruwasimimizuku_xnvclc"
     }
   },
   {
@@ -79,7 +79,7 @@
       "id": 8,
       "name": "test_product",
       "price": 1000,
-      "image": "images/sirofukurou_gfzdoo.jpg"
+      "image": "images/simafukurou_vsylaz"
     }
   }
 ]
