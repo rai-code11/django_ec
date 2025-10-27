@@ -18,3 +18,6 @@ STORAGES = {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
 }
+
+# ImageKitがサムネイルを保存する場所としてCloudinaryを明示的に指定
+IMAGEKIT_DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
