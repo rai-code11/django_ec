@@ -11,11 +11,11 @@ class ProductDetails(models.Model):
     )
 
     # 新しく追加するデータ
-    context = models.TextField()
-    code = models.CharField(max_length=50, unique=True)
+    context = models.TextField(
+        "内容",
+    )
+    code = models.CharField("商品コード", max_length=50, unique=True)
+    created_at = models.DateTimeField("掲載日", auto_now_add=True)
 
     class Meta:
         db_table = "product_details"
-
-    def __str__(self):
-        return f

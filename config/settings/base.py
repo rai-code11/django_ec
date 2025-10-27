@@ -17,13 +17,14 @@ environ.Env.read_env(env_file=str(BASE_DIR) + "/.env")
 
 INSTALLED_APPS = [
     "product_list.apps.ProductListConfig",
-    "product_details.apps.ProductListConfig",
+    "product_details.apps.ProductDetailsConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "imagekit",
     "cloudinary_storage",
     "cloudinary",
 ]

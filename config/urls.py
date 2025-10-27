@@ -10,8 +10,8 @@ urlpatterns = [
     path(
         "product_list/",
         include("product_list.urls"),
-        name="product_list",
     ),
+    path("product_details/", include("product_details.urls")),
     path("", TemplateView.as_view(template_name="product_list/product_list.html")),
 ]
 
