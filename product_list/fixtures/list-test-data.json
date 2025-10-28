@@ -6,7 +6,7 @@
       "id": 1,
       "name": "test_product",
       "price": 1000,
-      "image": "https://res.cloudinary.com/hfofbwa6i/image/upload/v1761193443/simafukurou_vsylaz.jpg"
+      "image": "bengaruwasimimizuku_xnvclc"
     }
   },
   {
@@ -16,7 +16,7 @@
       "id": 2,
       "name": "test_product",
       "price": 1000,
-      "image": "https://res.cloudinary.com/hfofbwa6i/image/upload/v1761193444/bengaruwasimimizuku_xnvclc.jpg"
+      "image": "sirofukurou_sq0bng"
     }
   },
 
@@ -27,7 +27,7 @@
       "id": 3,
       "name": "test_product",
       "price": 1000,
-      "image": "https://res.cloudinary.com/hfofbwa6i/image/upload/v1761193444/sirofukurou_sq0bng.jpg"
+      "image": "morifukurou_ukp5ky"
     }
   },
 
@@ -38,7 +38,7 @@
       "id": 4,
       "name": "test_product",
       "price": 1000,
-      "image": "https://res.cloudinary.com/hfofbwa6i/image/upload/v1761193444/morifukurou_ukp5ky.jpg"
+      "image": "simafukurou_vsylaz"
     }
   },
 
@@ -49,7 +49,7 @@
       "id": 5,
       "name": "test_product",
       "price": 1000,
-      "image": "https://res.cloudinary.com/hfofbwa6i/image/upload/v1761193443/siberiawasimimizuku_bq1qmq.jpg"
+      "image": "siberiawasimimizuku_bq1qmq"
     }
   },
   {
@@ -59,7 +59,7 @@
       "id": 6,
       "name": "test_product",
       "price": 1000,
-      "image": "https://res.cloudinary.com/hfofbwa6i/image/upload/v1761193443/menfukurou_y79sbs.jpg"
+      "image": "menfukurou_y79sbs"
     }
   },
   {
@@ -69,7 +69,7 @@
       "id": 7,
       "name": "test_product",
       "price": 1000,
-      "image": "https://res.cloudinary.com/hfofbwa6i/image/upload/v1761193443/afurikaookonohazuku_mrmry0.jpg"
+      "image": "afurikaookonohazuku_mrmry0"
     }
   },
   {
@@ -79,7 +79,7 @@
       "id": 8,
       "name": "test_product",
       "price": 1000,
-      "image": "https://res.cloudinary.com/hfofbwa6i/image/upload/v1761193443/kokinmefukurou_uxvdls.jpg"
+      "image": "kokinmefukurou_uxvdls"
     }
   }
 ]

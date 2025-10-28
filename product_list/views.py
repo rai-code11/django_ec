@@ -5,7 +5,7 @@ from django.views.generic.list import ListView
 # Create your views here.
 
 
-# # dbからidでデータを取ってくる
+# dbからidでデータを取ってくる
 class ProductListView(ListView):
     model = ProductList
     context_object_name = "product_list"
@@ -14,10 +14,3 @@ class ProductListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
-
-
-# def product_list_view(request):
-#     product_list = ProductList.objects.all()
-#     return render(
-#         request, "product_list/product_list.html", {"product_list": product_list}
-#     )

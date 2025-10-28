@@ -77,7 +77,7 @@
           <div class="col-md-6">
             <img
               class="card-img-top mb-md-0"
-              src="{{ product_list.productdetails_img.url }}"
+              src="{{ product_list.detail_thumb_url}}"
               alt="{{ product_list.name }}"
             />
           </div>
@@ -121,7 +121,7 @@
               <!-- Product image-->
               <img
                 class="card-img-top"
-                src="{{ product.productlist_img.url }}"
+                src="{{ product.list_thumb_url }}"
                 alt="{{ product.name }}"
               />
               <!-- Product details-->
@@ -153,8 +153,8 @@
               </div>
             </div>
           </div>
+          {% endfor %}
         </div>
-        {% endfor %}
       </div>
     </section>
     <!-- Footer-->

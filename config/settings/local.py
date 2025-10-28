@@ -7,6 +7,5 @@ DEBUG = True
 # "*"に設定することで、すべてのホストを許可
 ALLOWED_HOSTS = ["*"]
 
-# mediaファイルの設定
-MEDIA_ROOT = BASE_DIR / "media"
-MEDIA_URL = "/media/"
+# ローカル環境でもwhitenoiseを使う設定
+INSTALLED_APPS.insert(0, "whitenoise.runserver_nostatic")
