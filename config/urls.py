@@ -8,11 +8,10 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("hello/", TemplateView.as_view(template_name="hello.html")),
     path(
-        "product_list/",
-        include("product_list.urls"),
+        "products/",
+        include("product.urls"),
     ),
-    path("product_details/", include("product_details.urls")),
-    path("", TemplateView.as_view(template_name="product_list/product_list.html")),
+    path("", TemplateView.as_view(template_name="product/product_list.html")),
 ]
 
 if settings.DEBUG:

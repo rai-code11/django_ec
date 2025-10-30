@@ -16,8 +16,7 @@ environ.Env.read_env(env_file=str(BASE_DIR) + "/.env")
 # Application definition
 
 INSTALLED_APPS = [
-    "product_list.apps.ProductListConfig",
-    "product_details.apps.ProductDetailsConfig",
+    "product.apps.ProductConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
