@@ -11,7 +11,7 @@ from django.views.generic.list import ListView
 class ProductListView(ListView):
     model = Product
     context_object_name = "product_list"
-    template_name = "product/product_list.html"
+    template_name = "product/list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -22,7 +22,7 @@ class ProductDetailsView(DetailView):
     # self.objectがアクセスするモデル
     model = Product
     # templatesを指定
-    template_name = "product/product_details.html"
+    template_name = "product/details.html"
     # templatesにてproduct_listのデータをproduct_listという変数で使えるように指定
     context_object_name = "product"
 

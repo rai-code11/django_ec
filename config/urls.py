@@ -11,7 +11,7 @@ urlpatterns = [
         "products/",
         include("product.urls"),
     ),
-    path("", TemplateView.as_view(template_name="product/product_list.html")),
+    path("", TemplateView.as_view(template_name="product/list.html")),
 ]
 
 if settings.DEBUG:
