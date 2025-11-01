@@ -1,0 +1,109 @@
+[
+  {
+    "model": "product.Product",
+    "pk": 1,
+    "fields": {
+      "id": 1,
+      "name": "test_product",
+      "price": 1000,
+      "image": "bengaruwasimimizuku_xnvclc",
+      "code": "SKK: AAAAA",
+      "context": "テストテストテスト",
+      "created_at": "2025-10-24T00:00:00Z"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 2,
+    "fields": {
+      "id": 2,
+      "name": "test_product",
+      "price": 1000,
+      "image": "sirofukurou_sq0bng",
+      "code": "SKK: BBBBB",
+      "context": "テストテストテスト",
+      "created_at": "2025-10-23T00:00:00Z"
+    }
+  },
+
+  {
+    "model": "product.Product",
+    "pk": 3,
+    "fields": {
+      "id": 3,
+      "name": "test_product",
+      "price": 1000,
+      "image": "morifukurou_ukp5ky",
+      "code": "SKK: CCCCC",
+      "context": "テストテストテスト",
+      "created_at": "2025-10-22T00:00:00Z"
+    }
+  },
+
+  {
+    "model": "product.Product",
+    "pk": 4,
+    "fields": {
+      "id": 4,
+      "name": "test_product",
+      "price": 1000,
+      "image": "simafukurou_vsylaz",
+      "code": "SKK: DDDDD",
+      "context": "テストテストテスト",
+      "created_at": "2025-10-21T00:00:00Z"
+    }
+  },
+
+  {
+    "model": "product.Product",
+    "pk": 5,
+    "fields": {
+      "id": 5,
+      "name": "test_product",
+      "price": 1000,
+      "image": "siberiawasimimizuku_bq1qmq",
+      "code": "SKK: EEEEE",
+      "context": "テストテストテスト",
+      "created_at": "2025-10-20T00:00:00Z"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 6,
+    "fields": {
+      "id": 6,
+      "name": "test_product",
+      "price": 1000,
+      "image": "menfukurou_y79sbs",
+      "code": "SKK: FFFFF",
+      "context": "テストテストテスト",
+      "created_at": "2025-10-19T00:00:00Z"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 7,
+    "fields": {
+      "id": 7,
+      "name": "test_product",
+      "price": 1000,
+      "image": "afurikaookonohazuku_mrmry0",
+      "code": "SKK: GGGGG",
+      "context": "テストテストテスト",
+      "created_at": "2025-10-18T00:00:00Z"
+    }
+  },
+  {
+    "model": "product.Product",
+    "pk": 8,
+    "fields": {
+      "id": 8,
+      "name": "test_product",
+      "price": 1000,
+      "image": "kokinmefukurou_uxvdls",
+      "code": "SKK: HHHHHH",
+      "context": "テストテストテスト",
+      "created_at": "2025-10-17T00:00:00Z"
+    }
+  }
+]
