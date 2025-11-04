@@ -12,6 +12,10 @@ urlpatterns = [
         include("product.urls"),
     ),
     path("", TemplateView.as_view(template_name="product/list.html")),
+    path(
+        "manage/products/",
+        include("control.urls"),
+    ),
 ]
 
 if settings.DEBUG:
