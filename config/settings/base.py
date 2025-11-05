@@ -17,6 +17,7 @@ environ.Env.read_env(env_file=str(BASE_DIR) + "/.env")
 
 INSTALLED_APPS = [
     "product.apps.ProductConfig",
+    "control.apps.ControlConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -130,4 +131,9 @@ CLOUDINARY_STORAGE = {
     "CLOUD_NAME": env("CLOUD_NAME"),
     "API_KEY": env("CLOUDINARY_API_KEY"),
     "API_SECRET": env("CLOUDINARY_API_SECRET"),
+}
+
+
+BASICAUTH_USERS = {
+    "admin": "pw",
 }
