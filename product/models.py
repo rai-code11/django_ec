@@ -18,6 +18,7 @@ class Product(models.Model):
     )
     code = models.CharField("商品コード", max_length=50, unique=True)
     created_at = models.DateTimeField("掲載日", auto_now_add=True)
+    cart = models.IntegerField("カート数", default=0)
 
     # リスト用のサムネリサイズ設定
     @property

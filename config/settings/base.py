@@ -18,6 +18,7 @@ environ.Env.read_env(env_file=str(BASE_DIR) + "/.env")
 INSTALLED_APPS = [
     "product.apps.ProductConfig",
     "control.apps.ControlConfig",
+    "checkout.apps.CheckoutConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -133,7 +134,14 @@ CLOUDINARY_STORAGE = {
     "API_SECRET": env("CLOUDINARY_API_SECRET"),
 }
 
-
+# basic認証用のユーザー名とPW
 BASICAUTH_USERS = {
     "admin": "pw",
 }
+
+# DBを使ったセッション
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+SESSION_COOKIE_HTTPONLY = True
+
+# シリアライザ(デフォルト値)
+SESSION_SERIALIZER = "django.contrib.sessions.serializers.JSONSerializer"
