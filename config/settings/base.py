@@ -139,9 +139,5 @@ BASICAUTH_USERS = {
     "admin": "pw",
 }
 
-# DBを使ったセッション
-SESSION_ENGINE = "django.contrib.sessions.backends.db"
-SESSION_COOKIE_HTTPONLY = True
-
-# シリアライザ(デフォルト値)
+# シリアライズ用
 SESSION_SERIALIZER = "django.contrib.sessions.serializers.JSONSerializer"
