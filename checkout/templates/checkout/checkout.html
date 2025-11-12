@@ -197,22 +197,20 @@
         <div class="py-5 text-center">
           <img
             class="d-block mx-auto mb-4"
-            src="../assets/brand/bootstrap-logo.svg"
-            alt=""
+            src="{{ icon.icon_thumb_url }}"
+            alt="{{ icon.name }}"
             width="72"
             height="57"
           />
-          <h1 class="h2">Checkout form</h1>
+          <h1 class="h2">決済画面</h1>
           <p class="lead">
-            Below is an example form built entirely with Bootstrap’s form
-            controls. Each required form group has a validation state that can
-            be triggered by attempting to submit the form without completing it.
+            決済情報を入力いただき、最後に完了ボタンを押してください。
           </p>
         </div>
         <div class="row g-5">
           <div class="col-md-5 col-lg-4 order-md-last">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
-              <span class="text-primary">Your cart</span>
+              <span class="text-primary">カート</span>
               <span class="badge bg-primary rounded-pill">3</span>
             </h4>
             <ul class="list-group mb-3">
@@ -222,20 +220,6 @@
                   <small class="text-body-secondary">Brief description</small>
                 </div>
                 <span class="text-body-secondary">$12</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between lh-sm">
-                <div>
-                  <h6 class="my-0">Second product</h6>
-                  <small class="text-body-secondary">Brief description</small>
-                </div>
-                <span class="text-body-secondary">$8</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between lh-sm">
-                <div>
-                  <h6 class="my-0">Third item</h6>
-                  <small class="text-body-secondary">Brief description</small>
-                </div>
-                <span class="text-body-secondary">$5</span>
               </li>
               <li
                 class="list-group-item d-flex justify-content-between bg-body-tertiary"
@@ -262,11 +246,11 @@
             </form>
           </div>
           <div class="col-md-7 col-lg-8">
-            <h4 class="mb-3">Billing address</h4>
+            <h4 class="mb-3">請求先情報</h4>
             <form class="needs-validation" novalidate>
               <div class="row g-3">
                 <div class="col-sm-6">
-                  <label for="firstName" class="form-label">First name</label>
+                  <label for="firstName" class="form-label">姓</label>
                   <input
                     type="text"
                     class="form-control"
@@ -280,7 +264,7 @@
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <label for="lastName" class="form-label">Last name</label>
+                  <label for="lastName" class="form-label">名</label>
                   <input
                     type="text"
                     class="form-control"
@@ -294,7 +278,7 @@
                   </div>
                 </div>
                 <div class="col-12">
-                  <label for="username" class="form-label">Username</label>
+                  <label for="username" class="form-label">ユーザー名</label>
                   <div class="input-group has-validation">
                     <span class="input-group-text">@</span>
                     <input
@@ -311,9 +295,8 @@
                 </div>
                 <div class="col-12">
                   <label for="email" class="form-label"
-                    >Email
-                    <span class="text-body-secondary">(Optional)</span></label
-                  >
+                    >メールアドレス <span class="text-body-secondary"></span
+                  ></label>
                   <input
                     type="email"
                     class="form-control"
@@ -325,12 +308,12 @@
                   </div>
                 </div>
                 <div class="col-12">
-                  <label for="address" class="form-label">Address</label>
+                  <label for="address" class="form-label">郵便番号</label>
                   <input
                     type="text"
                     class="form-control"
                     id="address"
-                    placeholder="1234 Main St"
+                    placeholder="123-4567"
                     required
                   />
                   <div class="invalid-feedback">
@@ -339,20 +322,19 @@
                 </div>
                 <div class="col-12">
                   <label for="address2" class="form-label"
-                    >Address 2
-                    <span class="text-body-secondary">(Optional)</span></label
-                  >
+                    >都道府県 <span class="text-body-secondary"></span
+                  ></label>
                   <input
                     type="text"
                     class="form-control"
                     id="address2"
-                    placeholder="Apartment or suite"
+                    placeholder="---------"
                   />
                 </div>
                 <div class="col-md-5">
-                  <label for="country" class="form-label">Country</label>
+                  <label for="country" class="form-label">市区町村</label>
                   <select class="form-select" id="country" required>
-                    <option value="">Choose...</option>
+                    <option value="">〇〇市〇〇区〇〇町</option>
                     <option>United States</option>
                   </select>
                   <div class="invalid-feedback">
@@ -360,9 +342,9 @@
                   </div>
                 </div>
                 <div class="col-md-4">
-                  <label for="state" class="form-label">State</label>
+                  <label for="state" class="form-label">丁目・番地・号</label>
                   <select class="form-select" id="state" required>
-                    <option value="">Choose...</option>
+                    <option value="">296-296</option>
                     <option>California</option>
                   </select>
                   <div class="invalid-feedback">

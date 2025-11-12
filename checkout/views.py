@@ -1,4 +1,4 @@
-from .models import Cart, CartItem
+from .models import Cart, CartItem, Icon
 from django.views import View
 from django.views.generic import TemplateView
 from django.shortcuts import redirect, get_object_or_404
@@ -66,8 +66,19 @@ class RemoveFromCartView(View):
         return redirect(request.META.get("HTTP_REFERER"))
 
 
+# アイコンを表示するclass
+class LogoContextMixin:
+    def get_icon(self):
+        return Icon.objects.only("image").first()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["icon"] = self.get_icon()
+        return context
+
+
 # カートの中身を表示するView
-class CartDetailView(TemplateView):
+class CartDetailView(LogoContextMixin, TemplateView):
     template_name = "checkout/checkout.html"
 
     # カートの中身や合計金額,個数を取得してテンプレートに渡す

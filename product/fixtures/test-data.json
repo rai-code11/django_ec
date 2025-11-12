@@ -105,5 +105,13 @@
       "context": "テストテストテスト",
       "created_at": "2025-10-17T00:00:00Z"
     }
+  },
+  {
+    "model": "checkout.Icon",
+    "fields": {
+      "id": 1,
+      "name": "決済アイコン",
+      "image": "cute-owl-illustration-vector-black-260nw-2288387705_npffoh"
+    }
   }
 ]
