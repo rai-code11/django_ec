@@ -2,17 +2,10 @@ from .models import Cart, CartItem, Icon
 from django.views import View
 from django.views.generic import TemplateView
 from django.shortcuts import redirect, get_object_or_404
-from django.contrib import messages
+from .utils import _ensure_cart_session
 from django.db.models import F
 
 # Create your views here.
-
-
-# セッションIDを使ってカートを管理する関数
-def _ensure_cart_session(request):
-    if request.session.session_key is None:
-        request.session.save()
-    return request.session.session_key
 
 
 # カートの中身を追加、更新するView
@@ -22,23 +15,16 @@ class AddToCartView(View):
     def post(self, request, product_id):
         # Formから送信された数量を取得する
         # 数値が送信されたらそれを使い、送信されなければ1を使う
-        try:
-            quantity = int(request.POST.get("quantity", 1))
-            if quantity <= 0:
-                messages.error(request, "数量は１以上を指定してください。")
-                return redirect("product:detail", product_id=product_id)
-        except (ValueError, TypeError):
-            messages.error(request, "数量が不正です。")
-            return redirect("product:detail", product_id=product_id)
+        quantity = int(request.POST.get("quantity", 1))
 
         # セッションIDを取得する
         session_key = _ensure_cart_session(request)
-        # セッションIDからカートを特定。なければ作成する。
+        # セッションIDからカートを特定。なければそのセッションIDを使ってCartレコードを作成する。
         cart_obj, _ = Cart.objects.get_or_create(session_id=session_key)
 
-        # CartItemに商品を追加する。すでにあれば数量を更新する
+        # Cこのカートにこの商品がもう入ってるか確認して、なければ新しくCartItemを作る。あれば既存のCartItemをそのまま返す。
         cart_item, item_created = CartItem.objects.get_or_create(
-            cart_id=cart_obj, product_id=product_id, defaults={"quantity": quantity}
+            cart=cart_obj, product_id=product_id, defaults={"quantity": quantity}
         )
 
         if not item_created:
@@ -46,7 +32,6 @@ class AddToCartView(View):
                 quantity=F("quantity") + quantity
             )
 
-        messages.success(request, "カートに商品を追加しました。")
         return redirect(request.META.get("HTTP_REFERER"))
 
 
@@ -62,7 +47,6 @@ class RemoveFromCartView(View):
 
         item.delete()
 
-        messages.success(request, "カートから商品を削除しました。")
         return redirect(request.META.get("HTTP_REFERER"))
 
 
@@ -81,7 +65,7 @@ class LogoContextMixin:
 class CartDetailView(LogoContextMixin, TemplateView):
     template_name = "checkout/checkout.html"
 
-    # カートの中身や合計金額,個数を取得してテンプレートに渡す
+    # カートの中身や合計金額を取得してテンプレートに渡す
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -95,12 +79,10 @@ class CartDetailView(LogoContextMixin, TemplateView):
         )
 
         # CartItemの合計個数と合計金額を計算する
-        total_quantity = sum(item.quantity for item in cart_items)
         total_price = sum(item.quantity * item.product.price for item in cart_items)
 
         # テンプレートで使う変数をセットする
         context["cart_items"] = cart_items
-        context["total_quantity"] = total_quantity
         context["total_price"] = total_price
 
         return context
