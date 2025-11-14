@@ -6,17 +6,14 @@ from django.views.generic.list import ListView
 # Create your views here.
 
 
-# dbからidでデータを取ってくる
+# DBから商品一覧を取得して表示するView
 class ProductListView(ListView):
     model = Product
     context_object_name = "product_list"
     template_name = "product/list.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
 
-
+# DBから商品詳細を取得して表示するView
 class ProductDetailsView(DetailView):
     # self.objectがアクセスするモデル
     model = Product

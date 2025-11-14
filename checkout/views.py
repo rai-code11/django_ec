@@ -37,13 +37,13 @@ class AddToCartView(View):
 
 # カートの中身を削除するView
 class RemoveFromCartView(View):
-    def post(self, request, cart_item_id):
+    def post(self, request, product_id):
 
         session_key = _ensure_cart_session(request)
         # このカートのセッションを特定する
         cart = get_object_or_404(Cart, session_id=session_key)
         # このセッションのカートに紐づくCartItemを削除する
-        item = get_object_or_404(CartItem, id=cart_item_id, cart=cart)
+        item = get_object_or_404(CartItem, product_id=product_id, cart=cart)
 
         item.delete()
 
@@ -77,6 +77,10 @@ class CartDetailView(LogoContextMixin, TemplateView):
         cart_items = (
             CartItem.objects.filter(cart=cart_obj).select_related("product").all()
         )
+
+        # 各アイテムの小計を計算するメソッド
+        for item in cart_items:
+            item.subtotal = item.quantity * item.product.price
 
         # CartItemの合計個数と合計金額を計算する
         total_price = sum(item.quantity * item.product.price for item in cart_items)

@@ -24,7 +24,9 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#!">Start Bootstrap</a>
+        <a class="navbar-brand" href="{% url 'product:product_list' %}"
+          >🦉フクロウの森🌳</a
+        >
         <button
           class="navbar-toggler"
           type="button"
@@ -110,6 +112,7 @@
                   type="number"
                   value="1"
                   min="1"
+                  max="5"
                   style="max-width: 3rem"
                 />
 
@@ -129,7 +132,7 @@
     <!-- Related items section-->
     <section class="py-5 bg-light">
       <div class="container px-4 px-lg-5 mt-5">
-        <h2 class="fw-bolder mb-4">Related products</h2>
+        <h2 class="fw-bolder mb-4">新しく仲間入りしたフクロウ🦉</h2>
         <div
           class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
         >
@@ -137,11 +140,12 @@
           <div class="col mb-5">
             <div class="card h-100">
               <!-- Product image-->
-              <img
-                class="card-img-top"
-                src="{{ product.list_thumb_url }}"
-                alt="{{ product.name }}"
-              />
+              <a href="{% url 'product:product_details' pk=product.id %}">
+                <img
+                  class="card-img-top"
+                  src="{{ product.list_thumb_url }}"
+                  alt="{{ product.name }}"
+              /></a>
               <!-- Product details-->
               <div class="card-body p-4">
                 <div class="text-center">
