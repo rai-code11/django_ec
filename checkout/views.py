@@ -78,6 +78,9 @@ class CartDetailView(LogoContextMixin, TemplateView):
             CartItem.objects.filter(cart=cart_obj).select_related("product").all()
         )
 
+        # カート内の合計数量を計算するメソッドを呼び出す
+        cart_total_quantity = cart_obj.calculate_cart_total_quantity()
+
         # 各アイテムの小計を計算するメソッド
         for item in cart_items:
             item.subtotal = item.quantity * item.product.price
@@ -88,5 +91,6 @@ class CartDetailView(LogoContextMixin, TemplateView):
         # テンプレートで使う変数をセットする
         context["cart_items"] = cart_items
         context["total_price"] = total_price
+        context["cart_total_quantity"] = cart_total_quantity
 
         return context

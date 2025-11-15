@@ -1,5 +1,4 @@
 from .utils import _ensure_cart_session
-from .utils import calculate_cart_total_quantity
 from .models import Cart
 
 
@@ -8,7 +7,7 @@ def cart_context_processor(request):
 
     try:
         cart_obj = Cart.objects.get(session_id=session_key)
-        total_quantity = calculate_cart_total_quantity(cart_obj)
+        total_quantity = cart_obj.calculate_cart_total_quantity()
 
         return {"cart_total_quantity": total_quantity}
 

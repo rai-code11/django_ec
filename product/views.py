@@ -17,6 +17,8 @@ class ProductListView(ListView):
 class ProductDetailsView(DetailView):
     # self.objectがアクセスするモデル
     model = Product
+    # URLから取得するpkの名前を指定
+    pk_url_kwarg = "product_id"
     # templatesを指定
     template_name = "product/details.html"
     # templatesにてproduct_listのデータをproduct_listという変数で使えるように指定

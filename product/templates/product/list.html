@@ -97,7 +97,9 @@
           <div class="col mb-5">
             <div class="card h-100">
               <!-- Product image-->
-              <a href="{% url 'product:product_details' pk=product.id %}">
+              <a
+                href="{% url 'product:product_details' product_id=product.id %}"
+              >
                 <img
                   class="card-img-top"
                   src="{{ product.list_thumb_url }}"

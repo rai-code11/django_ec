@@ -1,7 +1,6 @@
 [
   {
     "model": "product.Product",
-    "pk": 1,
     "fields": {
       "id": 1,
       "name": "ベンガルワシミミズク",
@@ -14,7 +13,6 @@
   },
   {
     "model": "product.Product",
-    "pk": 2,
     "fields": {
       "id": 2,
       "name": "シロフクロウ",
@@ -28,7 +26,6 @@
 
   {
     "model": "product.Product",
-    "pk": 3,
     "fields": {
       "id": 3,
       "name": "モリフクロウ",
@@ -42,7 +39,6 @@
 
   {
     "model": "product.Product",
-    "pk": 4,
     "fields": {
       "id": 4,
       "name": "シマフクロウ",
@@ -56,7 +52,6 @@
 
   {
     "model": "product.Product",
-    "pk": 5,
     "fields": {
       "id": 5,
       "name": "シベリアワシミミズク",
@@ -69,7 +64,6 @@
   },
   {
     "model": "product.Product",
-    "pk": 6,
     "fields": {
       "id": 6,
       "name": "メンフクロウ",
@@ -82,7 +76,6 @@
   },
   {
     "model": "product.Product",
-    "pk": 7,
     "fields": {
       "id": 7,
       "name": "アフリカオオコノハズク",
@@ -95,7 +88,6 @@
   },
   {
     "model": "product.Product",
-    "pk": 8,
     "fields": {
       "id": 8,
       "name": "コキンメフクロウ",
