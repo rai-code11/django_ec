@@ -277,7 +277,13 @@
           </div>
           <div class="col-md-7 col-lg-8">
             <h4 class="mb-3">請求先情報</h4>
-            <form class="needs-validation" novalidate>
+            <form
+              class="needs-validation"
+              novalidate
+              method="POST"
+              action="{% url 'order:order' %}"
+            >
+              {% csrf_token %}
               <div class="row g-3">
                 <div class="col-sm-6">
                   <label for="firstName" class="form-label">姓</label>
@@ -286,6 +292,7 @@
                     class="form-control"
                     id="firstName"
                     placeholder="山田"
+                    name="last_name"
                     value=""
                     required
                   />
@@ -300,6 +307,7 @@
                     class="form-control"
                     id="lastName"
                     placeholder="梟"
+                    name="first_name"
                     value=""
                     required
                   />
@@ -316,6 +324,7 @@
                       class="form-control"
                       id="username"
                       placeholder="Username"
+                      name="user_name"
                       required
                     />
                     <div class="invalid-feedback">
@@ -332,6 +341,7 @@
                     class="form-control"
                     id="email"
                     placeholder="you@example.com"
+                    name="email"
                   />
                   <div class="invalid-feedback">
                     Please enter a valid email address for shipping updates.
@@ -343,7 +353,7 @@
                     type="text"
                     class="form-control"
                     id="zip"
-                    name="zip"
+                    name="zip_code"
                     placeholder="123-4567"
                     required
                   />
@@ -408,6 +418,7 @@
                     type="text"
                     class="form-control"
                     id="cc-name"
+                    name="card_holder"
                     placeholder="FUKURO YAMADA"
                     required
                   />
@@ -420,6 +431,7 @@
                     type="text"
                     class="form-control"
                     id="cc-number"
+                    name="card_number"
                     placeholder="例：1234 5678 9012 3456"
                     required
                   />
@@ -433,6 +445,7 @@
                     type="text"
                     class="form-control"
                     id="cc-expiration"
+                    name="expiration_date"
                     placeholder="例：2026/12/31"
                     required
                   />
@@ -446,6 +459,7 @@
                     type="text"
                     class="form-control"
                     id="cc-cvv"
+                    name="cvv"
                     placeholder="例：123"
                     required
                   />

@@ -16,4 +16,5 @@ urlpatterns = [
         include("control.urls"),
     ),
     path("checkout/", include("checkout.urls")),
+    path("order/", include("order.urls")),
 ]
