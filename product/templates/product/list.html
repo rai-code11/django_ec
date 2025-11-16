@@ -24,7 +24,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#!">Start Bootstrap</a>
+        <a class="navbar-brand" href="#!">🦉フクロウの森🌳</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -60,11 +60,17 @@
               </ul>
             </li>
           </ul>
-          <form class="d-flex">
+          <form
+            class="d-flex"
+            method="GET"
+            action="{% url 'checkout:checkout' %}"
+          >
             <button class="btn btn-outline-dark" type="submit">
               <i class="bi-cart-fill me-1"></i>
-              Cart
-              <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+              カート
+              <span class="badge bg-dark text-white ms-1 rounded-pill"
+                >{{ cart_total_quantity }}</span
+              >
             </button>
           </form>
         </div>
@@ -74,9 +80,9 @@
     <header class="bg-dark py-5">
       <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-          <h1 class="display-4 fw-bolder">Shop in style</h1>
+          <h1 class="display-4 fw-bolder">🦉フクロウの森🌳</h1>
           <p class="lead fw-normal text-white-50 mb-0">
-            With this shop hompeage template
+            フクロウカフェ直営☕️/公式オンラインショップ🏬
           </p>
         </div>
       </div>
@@ -89,34 +95,43 @@
         >
           {% for product in product_list %}
           <div class="col mb-5">
-            <a href="{% url 'product:product_details' pk=product.id %}">
-              <div class="card h-100">
-                <!-- Product image-->
+            <div class="card h-100">
+              <!-- Product image-->
+              <a
+                href="{% url 'product:product_details' product_id=product.id %}"
+              >
                 <img
                   class="card-img-top"
                   src="{{ product.list_thumb_url }}"
                   alt="{{ product.name }}"
-                />
-                <!-- Product details-->
-                <div class="card-body p-4">
-                  <div class="text-center">
-                    <!-- Product name-->
-                    <h5 class="fw-bolder">{{ product.name }}</h5>
-                    <!-- Product price-->
-                    ${{ product.price }}
-                  </div>
-                </div>
+              /></a>
 
-                <!-- Product actions-->
-                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                  <div class="text-center">
-                    <a class="btn btn-outline-dark mt-auto" href="#"
-                      >View options</a
-                    >
-                  </div>
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder">{{ product.name }}</h5>
+                  <!-- Product price-->
+                  ¥{{ product.price }}
                 </div>
               </div>
-            </a>
+
+              <!-- Product actions-->
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                  <form
+                    method="POST"
+                    action="{% url 'checkout:add_to_cart' product_id=product.id %}"
+                  >
+                    {% csrf_token %}
+                    <input type="hidden" name="quantity" value="1" />
+                    <button class="btn btn-outline-dark mt-auto" type="submit">
+                      Add to cart
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
           {% endfor %}
         </div>

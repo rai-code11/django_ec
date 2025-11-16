@@ -1,11 +1,10 @@
 [
   {
     "model": "product.Product",
-    "pk": 1,
     "fields": {
       "id": 1,
-      "name": "test_product",
-      "price": 1000,
+      "name": "ベンガルワシミミズク",
+      "price": 400000,
       "image": "bengaruwasimimizuku_xnvclc",
       "code": "SKK: AAAAA",
       "context": "テストテストテスト",
@@ -14,11 +13,10 @@
   },
   {
     "model": "product.Product",
-    "pk": 2,
     "fields": {
       "id": 2,
-      "name": "test_product",
-      "price": 1000,
+      "name": "シロフクロウ",
+      "price": 600000,
       "image": "sirofukurou_sq0bng",
       "code": "SKK: BBBBB",
       "context": "テストテストテスト",
@@ -28,11 +26,10 @@
 
   {
     "model": "product.Product",
-    "pk": 3,
     "fields": {
       "id": 3,
-      "name": "test_product",
-      "price": 1000,
+      "name": "モリフクロウ",
+      "price": 350000,
       "image": "morifukurou_ukp5ky",
       "code": "SKK: CCCCC",
       "context": "テストテストテスト",
@@ -42,11 +39,10 @@
 
   {
     "model": "product.Product",
-    "pk": 4,
     "fields": {
       "id": 4,
-      "name": "test_product",
-      "price": 1000,
+      "name": "シマフクロウ",
+      "price": 750000,
       "image": "simafukurou_vsylaz",
       "code": "SKK: DDDDD",
       "context": "テストテストテスト",
@@ -56,11 +52,10 @@
 
   {
     "model": "product.Product",
-    "pk": 5,
     "fields": {
       "id": 5,
-      "name": "test_product",
-      "price": 1000,
+      "name": "シベリアワシミミズク",
+      "price": 880000,
       "image": "siberiawasimimizuku_bq1qmq",
       "code": "SKK: EEEEE",
       "context": "テストテストテスト",
@@ -69,11 +64,10 @@
   },
   {
     "model": "product.Product",
-    "pk": 6,
     "fields": {
       "id": 6,
-      "name": "test_product",
-      "price": 1000,
+      "name": "メンフクロウ",
+      "price": 100000,
       "image": "menfukurou_y79sbs",
       "code": "SKK: FFFFF",
       "context": "テストテストテスト",
@@ -82,11 +76,10 @@
   },
   {
     "model": "product.Product",
-    "pk": 7,
     "fields": {
       "id": 7,
-      "name": "test_product",
-      "price": 1000,
+      "name": "アフリカオオコノハズク",
+      "price": 400000,
       "image": "afurikaookonohazuku_mrmry0",
       "code": "SKK: GGGGG",
       "context": "テストテストテスト",
@@ -95,15 +88,22 @@
   },
   {
     "model": "product.Product",
-    "pk": 8,
     "fields": {
       "id": 8,
-      "name": "test_product",
-      "price": 1000,
+      "name": "コキンメフクロウ",
+      "price": 390000,
       "image": "kokinmefukurou_uxvdls",
       "code": "SKK: HHHHHH",
       "context": "テストテストテスト",
       "created_at": "2025-10-17T00:00:00Z"
+    }
+  },
+  {
+    "model": "checkout.Icon",
+    "fields": {
+      "id": 1,
+      "name": "決済アイコン",
+      "image": "cute-owl-illustration-vector-black-260nw-2288387705_npffoh"
     }
   }
 ]

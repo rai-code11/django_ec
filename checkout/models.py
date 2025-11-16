@@ -1,0 +1,56 @@
+from django.db import models
+from product.models import Product
+from cloudinary.utils import cloudinary_url
+from django.db.models import Sum
+import time
+
+# Create your models here.
+
+
+class Cart(models.Model):
+    class Meta:
+        db_table = "cart"
+
+    session_id = models.CharField(max_length=40, null=True, blank=True, unique=True)
+
+    # カート内の合計数量を計算する関数
+    def calculate_cart_total_quantity(self):
+        # cart_items = CartItem.objects.filter(cart=self)
+        # total_quantity = sum(item.quantity for item in cart_items)
+
+        # 取り出さずにDB側で合計を計算できるので高速になる
+        total_quantity = self.cartitem_set.aggregate(Sum("quantity"))["quantity__sum"]
+        # if total_quantity is None:
+        #     total_quantity = 0
+
+        # return total_quantity
+
+        return total_quantity if total_quantity is not None else 0
+
+
+class CartItem(models.Model):
+    class Meta:
+        db_table = "cart_items"
+        models.UniqueConstraint(fields=["cart", "product"], name="uniq_cart_product")
+
+    cart = models.ForeignKey(Cart, verbose_name="カート", on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, verbose_name="商品", on_delete=models.CASCADE)
+    quantity = models.IntegerField("個数", default=0)
+    brief_description = models.CharField("簡易説明", max_length=10)
+
+
+class Icon(models.Model):
+    class Meta:
+        db_table = "icon"
+
+    name = models.CharField("名前", max_length=20)
+    image = models.CharField("画像", max_length=100)
+
+    # 詳細用のサムネリサイズ設定
+    @property
+    def icon_thumb_url(self):
+        public_id = self.image
+        url, _ = cloudinary_url(
+            public_id, width=72, height=57, crop="fill", version=int(time.time())
+        )
+        return url

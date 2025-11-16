@@ -18,6 +18,7 @@ environ.Env.read_env(env_file=str(BASE_DIR) + "/.env")
 INSTALLED_APPS = [
     "product.apps.ProductConfig",
     "control.apps.ControlConfig",
+    "checkout.apps.CheckoutConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -52,6 +53,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "checkout.context_processors.cart_context_processor",
             ],
         },
     },
@@ -133,7 +135,10 @@ CLOUDINARY_STORAGE = {
     "API_SECRET": env("CLOUDINARY_API_SECRET"),
 }
 
-
+# basic認証用のユーザー名とPW
 BASICAUTH_USERS = {
     "admin": "pw",
 }
+
+# シリアライズ用
+SESSION_SERIALIZER = "django.contrib.sessions.serializers.JSONSerializer"
