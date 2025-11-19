@@ -1,5 +1,4 @@
 from django.db import models
-from checkout.models import CartItem
 
 # Create your models here.
 
@@ -41,6 +40,9 @@ class LineItem(models.Model):
 
     checkout = models.ForeignKey(
         Checkout, verbose_name="注文情報", on_delete=models.CASCADE
+    )
+    payment = models.ForeignKey(
+        Payment, verbose_name="決済情報", on_delete=models.CASCADE
     )
     cart_item_name = models.CharField("商品名", max_length=100)
     cart_item_price = models.IntegerField("価格", default=0)

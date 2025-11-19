@@ -7,10 +7,27 @@ import time
 # Create your models here.
 
 
+# カスタムマネージャの設定
+# カートを消す処理を定義
+class CartManager(models.Manager):
+    def clear_by_session(self, session_key):
+        # filter()を使って該当するクエリセットを取得
+        queryset = self.filter(session_id=session_key)
+
+        # クエリセットに対して直接delete()を呼び出す
+        # データベースで直接DELETEクエリが実行される
+        deleted_count, _ = queryset.delete()
+
+        # 削除されたレコード数が0より大きければ成功と見なす
+        return deleted_count > 0
+
+
 class Cart(models.Model):
     class Meta:
         db_table = "cart"
 
+    # カスタムマネージャを呼び出せるようにする
+    objects = CartManager()
     session_id = models.CharField(max_length=40, null=True, blank=True, unique=True)
 
     # カート内の合計数量を計算する関数

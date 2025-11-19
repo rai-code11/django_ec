@@ -1,39 +1,57 @@
-from django.views import View
+from django.views.generic import FormView
 from .models import Checkout, Payment
+from checkout.models import Cart
 from django.contrib import messages
-from django.shortcuts import redirect
+from django.db import transaction
+from .forms import OrderForm
+from django.urls import reverse_lazy
 
 
 # DBに請求情報とクレジットカード情報を保存するView
-class Order(View):
-    def post(self, request):
-        print(request.POST)
+class Order(FormView):
+    template_name = "checkout/checkout.html"
+    form_class = OrderForm
+    success_url = reverse_lazy("product:product_list")
+
+    # トランザクション処理にする
+    @transaction.atomic
+    def form_valid(self, form):
+        print("--- DEBUG: form_validが実行されました ---")
+
+        data = form.cleaned_data
         # フォームから請求情報を取得してDBに保存
         # 請求情報をCheckoutモデルに格納し、決済情報のインスタンスを作成して保存する
-        checkout = Checkout(
-            last_name=request.POST["last_name"],
-            first_name=request.POST["first_name"],
-            user_name=request.POST["user_name"],
-            email=request.POST["email"],
-            zip_code=request.POST["zip_code"],
-            prefecture=request.POST["prefecture"],
-            city=request.POST["city"],
-            street_address=request.POST["street_address"],
-            building_name=request.POST["building_name"],
-        )
-        checkout.save()
 
-        # フォームからクレジットカード情報を取得してDBに保存
-        payment = Payment(
+        checkout = Checkout.objects.create(
+            last_name=data["last_name"],
+            first_name=data["first_name"],
+            user_name=data["user_name"],
+            email=data["email"],
+            zip_code=data["zip_code"],
+            prefecture=data["prefecture"],
+            city=data["city"],
+            street_address=data["street_address"],
+            building_name=data["building_name"],
+        )
+
+        # --- 2. 決済情報 (Payment) の保存 ---
+        payment = Payment.objects.create(
             checkout=checkout,
-            card_holder=request.POST["card_holder"],
-            card_number=request.POST["card_number"],
-            expiration_date=request.POST["expiration_date"],
-            cvv=request.POST["cvv"],
+            card_holder=data["card_holder"],
+            card_number=data["card_number"],  # 本来はトークンを保存
+            expiration_date=data["expiration_date"],
+            cvv=data["cvv"],  # 本来はトークンを保存
         )
-        payment.save()
 
-        # サクセスメッセージを表示する
-        messages.success(request, "購入ありがとうございます")
+        # 現在のセッションIDを取得してそれに該当するカートを削除する
+        current_session_key = self.request.session.session_key
+        Cart.objects.clear_by_session(current_session_key)
 
-        return redirect("product:product_list")
+        messages.success(self.request, "購入ありがとうございます")
+
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print("--- DEBUG: form_invalidが実行されました ---")
+        print(form.errors)  # どのフィールドがエラーかコンソールに出る
+        return super().form_invalid(form)

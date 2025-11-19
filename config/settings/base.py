@@ -130,6 +130,8 @@ DATABASES = {
     "default": env.db(),
 }
 
+DATABASES["default"]["ATOMIC_REQUESTS"] = True
+
 CLOUDINARY_STORAGE = {
     "CLOUD_NAME": env("CLOUD_NAME"),
     "API_KEY": env("CLOUDINARY_API_KEY"),

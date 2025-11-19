@@ -1,8 +1,7 @@
-from django.shortcuts import render
-
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from product.models import Product
+from order.models import LineItem
 from django.urls import reverse_lazy
 
 # Create your views here.
@@ -12,10 +11,6 @@ class List(ListView):
     model = Product
     context_object_name = "list"
     template_name = "control/list.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
 
 
 class Create(CreateView):
@@ -39,3 +34,9 @@ class Delete(DeleteView):
     template_name = "control/delete.html"
 
     success_url = reverse_lazy("manage:list")
+
+
+class ParticipantList(ListView):
+    model = LineItem
+    context_object_name = "participant"
+    template_name = "control/participant_list.html"
