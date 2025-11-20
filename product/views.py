@@ -39,3 +39,4 @@ class ProductDetailsView(DetailView):
         context["related_products"] = related_products
 
         return context
+

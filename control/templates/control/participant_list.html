@@ -9,44 +9,29 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
-    <title>商品管理一覧</title>
+    <title>購入者一覧</title>
   </head>
   <body>
     <table class="table">
       <thead>
         <tr>
           <th scope="col">id</th>
-          <th scope="col">商品名</th>
-          <th scope="col">価格</th>
-          <th scope="col">画像</th>
-          <th scope="col">内容</th>
-          <th scope="col">商品コード</th>
-          <th scope="col">掲載日</th>
+          <th scope="col">氏名</th>
+          <th scope="col">合計金額</th>
+          <th scope="col">注文日時</th>
         </tr>
       </thead>
       <tbody>
-        {% for product in list %}
+        {% for part in participant %}
         <tr>
-          <th scope="row">{{ product.id }}</th>
-          <td>{{ product.name }}</td>
-          <td>{{ product.price }}</td>
-          <td>{{ product.image }}</td>
-          <td>{{ product.context }}</td>
-          <td>{{ product.code }}</td>
-          <td>{{ product.created_at }}</td>
-          <td>
-            <a
-              class="btn btn-primary"
-              href="{% url 'manage:update' pk=product.id %}"
-              role="button"
-              >編集</a
-            ><a
-              class="btn btn-primary"
-              href="{% url 'manage:delete' pk=product.id %}"
-              role="button"
-              >削除</a
-            >
-          </td>
+          <th scope="row">{{ part.id }}</th>
+          <td>{{ part.name }}</td>
+          <td>{{ part.price }}</td>
+          <td>{{ part.image }}</td>
+          <td>{{ part.context }}</td>
+          <td>{{ part.code }}</td>
+          <td>{{ part.created_at }}</td>
+
         </tr>
         {% endfor %}
       </tbody>

@@ -9,17 +9,17 @@ import time
 
 # カスタムマネージャの設定
 # カートを消す処理を定義
-class CartManager(models.Manager):
-    def clear_by_session(self, session_key):
-        # filter()を使って該当するクエリセットを取得
-        queryset = self.filter(session_id=session_key)
+# class CartManager(models.Manager):
+#     def clear_by_session(self, session_key):
+#         # filter()を使って該当するクエリセットを取得
+#         queryset = self.filter(session_id=session_key)
 
-        # クエリセットに対して直接delete()を呼び出す
-        # データベースで直接DELETEクエリが実行される
-        deleted_count, _ = queryset.delete()
+#         # クエリセットに対して直接delete()を呼び出す
+#         # データベースで直接DELETEクエリが実行される
+#         deleted_count, _ = queryset.delete()
 
-        # 削除されたレコード数が0より大きければ成功と見なす
-        return deleted_count > 0
+#         # 削除されたレコード数が0より大きければ成功と見なす
+#         return deleted_count > 0
 
 
 class Cart(models.Model):
@@ -27,22 +27,39 @@ class Cart(models.Model):
         db_table = "cart"
 
     # カスタムマネージャを呼び出せるようにする
-    objects = CartManager()
+    # objects = CartManager()
     session_id = models.CharField(max_length=40, null=True, blank=True, unique=True)
 
-    # カート内の合計数量を計算する関数
+    # このCartに紐づいているCartItemを、Product情報も一緒に全部取ってくる
+    def get_items(self):
+        n_1 = self.cartitem_set.select_related("product").all()
+        return n_1
+
+    # カート内の合計数量を計算するメソッド
     def calculate_cart_total_quantity(self):
         # cart_items = CartItem.objects.filter(cart=self)
         # total_quantity = sum(item.quantity for item in cart_items)
 
         # 取り出さずにDB側で合計を計算できるので高速になる
-        total_quantity = self.cartitem_set.aggregate(Sum("quantity"))["quantity__sum"]
+        total_quantity = sum(item.quantity for item in self.get_items())
         # if total_quantity is None:
         #     total_quantity = 0
 
         # return total_quantity
 
         return total_quantity if total_quantity is not None else 0
+
+    # カートの合計金額を計算するメソッド
+    def calculate_cart_total_amount(self):
+        total_amount = sum(
+            item.quantity * item.product.price for item in self.get_items()
+        )
+        return total_amount if total_amount is not None else 0
+
+    # カートアイテムを消すメソッド
+    def clear(self):
+        self.cartitem_set.all().delete()
+        self.delete()
 
 
 class CartItem(models.Model):
@@ -53,7 +70,6 @@ class CartItem(models.Model):
     cart = models.ForeignKey(Cart, verbose_name="カート", on_delete=models.CASCADE)
     product = models.ForeignKey(Product, verbose_name="商品", on_delete=models.CASCADE)
     quantity = models.IntegerField("個数", default=0)
-    brief_description = models.CharField("簡易説明", max_length=10)
 
 
 class Icon(models.Model):

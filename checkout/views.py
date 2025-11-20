@@ -74,23 +74,18 @@ class CartDetailView(LogoContextMixin, TemplateView):
         cart_obj, _ = Cart.objects.get_or_create(session_id=session_key)
 
         # 商品を結合して取得（N+1回避）
-        cart_items = (
-            CartItem.objects.filter(cart=cart_obj).select_related("product").all()
-        )
-
-        # カート内の合計数量を計算するメソッドを呼び出す
-        cart_total_quantity = cart_obj.calculate_cart_total_quantity()
+        cart_items = cart_obj.get_items()
+        # cart_items = (
+        #     CartItem.objects.filter(cart=cart_obj).select_related("product").all()
+        # )
 
         # 各アイテムの小計を計算するメソッド
         for item in cart_items:
             item.subtotal = item.quantity * item.product.price
 
-        # CartItemの合計個数と合計金額を計算する
-        total_price = sum(item.quantity * item.product.price for item in cart_items)
-
         # テンプレートで使う変数をセットする
         context["cart_items"] = cart_items
-        context["total_price"] = total_price
-        context["cart_total_quantity"] = cart_total_quantity
+        context["total_price"] = cart_obj.calculate_cart_total_amount()
+        context["cart_total_quantity"] = cart_obj.calculate_cart_total_quantity()
 
         return context

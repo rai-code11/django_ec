@@ -1,10 +1,11 @@
 from django.views.generic import FormView
-from .models import Checkout, Payment
+from .models import Checkout, Payment, LineItem
 from checkout.models import Cart
 from django.contrib import messages
 from django.db import transaction
 from .forms import OrderForm
 from django.urls import reverse_lazy
+from checkout.utils import _ensure_cart_session
 
 
 # DBに請求情報とクレジットカード情報を保存するView
@@ -16,9 +17,19 @@ class Order(FormView):
     # トランザクション処理にする
     @transaction.atomic
     def form_valid(self, form):
-        print("--- DEBUG: form_validが実行されました ---")
+        print("DEBUG: form_validが実行されました")
+        # form_validは引数にrequestを取らないのselfから取得する
+        session_key = _ensure_cart_session(self.request)
+        cart_obj = Cart.objects.get(session_id=session_key)
 
+        # 合計金額と合計個数とカートのアイテムを取り出すためにCartのインスタンスに対してメソッドを呼ぶ
+        total_amount = cart_obj.calculate_cart_total_amount()
+        total_quantity = cart_obj.calculate_cart_total_quantity()
+        cart_items = cart_obj.get_items()
+
+        # formsで定義したバリデーションを突破した情報をdataに格納する
         data = form.cleaned_data
+
         # フォームから請求情報を取得してDBに保存
         # 請求情報をCheckoutモデルに格納し、決済情報のインスタンスを作成して保存する
 
@@ -32,26 +43,40 @@ class Order(FormView):
             city=data["city"],
             street_address=data["street_address"],
             building_name=data["building_name"],
+            total_amount=total_amount,
+            total_quantity=total_quantity,
         )
 
-        # --- 2. 決済情報 (Payment) の保存 ---
+        # 決済情報をPaymentモデルに保存
         payment = Payment.objects.create(
             checkout=checkout,
             card_holder=data["card_holder"],
-            card_number=data["card_number"],  # 本来はトークンを保存
+            card_number=data["card_number"],  # 本来はDBに保存しない
             expiration_date=data["expiration_date"],
-            cvv=data["cvv"],  # 本来はトークンを保存
+            cvv=data["cvv"],  # 本来はDBに保存しない
         )
 
-        # 現在のセッションIDを取得してそれに該当するカートを削除する
-        current_session_key = self.request.session.session_key
-        Cart.objects.clear_by_session(current_session_key)
+        # LineItemに決済情報・クレカ情報・カートアイテム情報を保存する
+        # セッションに基づくカートアイテム情報を取得するために現在のセッションIDを取得する
+        # カートインスタンスを取得する
+        # LineItemへ保存をするためにカートアイテムインスタンスを取得する
+        for item in cart_items:
+            LineItem.objects.create(
+                checkout=checkout,
+                cart_item_name=item.product.name,
+                cart_item_price=item.product.price,
+                cart_item_quantity=item.quantity,
+                cart_item_subtotal_amount=item.product.price * item.quantity,
+            )
+
+        # カートを削除する
+        cart_obj.clear()
 
         messages.success(self.request, "購入ありがとうございます")
 
         return super().form_valid(form)
 
-    def form_invalid(self, form):
-        print("--- DEBUG: form_invalidが実行されました ---")
-        print(form.errors)  # どのフィールドがエラーかコンソールに出る
-        return super().form_invalid(form)
+    # def form_invalid(self, form):
+    #     print("--- DEBUG: form_invalidが実行されました ---")
+    #     print(form.errors)  # どのフィールドがエラーかコンソールに出る
+    #     return super().form_invalid(form)

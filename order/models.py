@@ -7,6 +7,8 @@ from django.db import models
 class Checkout(models.Model):
     class Meta:
         db_table = "checkout"
+        # 登録順に並べる
+        ordering = ["-created_at"]
 
     last_name = models.CharField("姓", max_length=30)
     first_name = models.CharField("名", max_length=30)
@@ -17,6 +19,10 @@ class Checkout(models.Model):
     city = models.CharField("市区町村", max_length=30)
     street_address = models.CharField("丁目・番地・号", max_length=30)
     building_name = models.CharField("建物名・部屋番号", max_length=30, blank=True)
+
+    total_amount = models.IntegerField("合計金額", default=0)
+    total_quantity = models.IntegerField("合計数量", default=0)
+    created_at = models.DateTimeField("注文日時", auto_now_add=True, null=True)
 
 
 # クレジットカード情報モデル
@@ -41,9 +47,7 @@ class LineItem(models.Model):
     checkout = models.ForeignKey(
         Checkout, verbose_name="注文情報", on_delete=models.CASCADE
     )
-    payment = models.ForeignKey(
-        Payment, verbose_name="決済情報", on_delete=models.CASCADE
-    )
     cart_item_name = models.CharField("商品名", max_length=100)
     cart_item_price = models.IntegerField("価格", default=0)
     cart_item_quantity = models.IntegerField("数量", default=1)
+    cart_item_subtotal_amount = models.IntegerField("小計", default=0)
