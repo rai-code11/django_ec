@@ -27,28 +27,20 @@
               </tr>
             </thead>
             <tbody>
-              {% for product in list %}
+              {% for part in customer %}
               <tr>
-                <th scope="row">{{ product.id }}</th>
-                <td>{{ product.name }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.image }}</td>
-                <td>{{ product.context }}</td>
-                <td>{{ product.code }}</td>
-                <td>{{ product.created_at }}</td>
                 <td>
                   <a
-                    class="btn btn-primary"
-                    href="{% url 'manage:update' pk=product.id %}"
-                    role="button"
-                    >編集</a
-                  ><a
-                    class="btn btn-primary"
-                    href="{% url 'manage:delete' pk=product.id %}"
-                    role="button"
-                    >削除</a
+                    href="{% url 'manage:customer_details' customer_id=part.id %}"
+                    class="text-decoration-none"
+                    >#{{ part.id }}</a
                   >
                 </td>
+                <td>{{ part.last_name }} {{ part.first_name }}</td>
+                <td class="text-end">
+                  {{ part.total_amount|floatformat:0 }}円
+                </td>
+                <td>{{ part.created_at }}</td>
               </tr>
               {% endfor %}
             </tbody>

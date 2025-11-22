@@ -27,30 +27,17 @@
               </tr>
             </thead>
             <tbody>
-              {% for product in list %}
+              <!-- ここに Django のループで行を追加していく -->
+              <!--
+              {% for order in order_list %}
               <tr>
-                <th scope="row">{{ product.id }}</th>
-                <td>{{ product.name }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.image }}</td>
-                <td>{{ product.context }}</td>
-                <td>{{ product.code }}</td>
-                <td>{{ product.created_at }}</td>
-                <td>
-                  <a
-                    class="btn btn-primary"
-                    href="{% url 'manage:update' pk=product.id %}"
-                    role="button"
-                    >編集</a
-                  ><a
-                    class="btn btn-primary"
-                    href="{% url 'manage:delete' pk=product.id %}"
-                    role="button"
-                    >削除</a
-                  >
-                </td>
+                <td>#{{ order.order_number }}</td>
+                <td>{{ order.last_name }} {{ order.first_name }}</td>
+                <td class="text-end">¥{{ order.total_amount|floatformat:0 }}</td>
+                <td>{{ order.created_at }}</td>
               </tr>
               {% endfor %}
+              -->
             </tbody>
           </table>
         </div>

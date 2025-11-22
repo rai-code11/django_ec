@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container my-4">
+      <h1 class="h4 mb-3">購入者詳細</h1>
+
+      <!-- 注文情報 -->
+      <div class="card mb-3">
+        <div class="card-header">注文情報</div>
+        <div class="card-body p-0">
+          <table class="table table-sm mb-0">
+            <tbody>
+              <tr>
+                <th style="width: 30%">注文番号</th>
+                <td>{{ customer.id }}</td>
+              </tr>
+              <tr>
+                <th>注文日時</th>
+                <td>{{ customer.created_at }}</td>
+              </tr>
+              <tr>
+                <th>氏名</th>
+                <td>{{ customer.last_name }} {{ customer.first_name }}</td>
+              </tr>
+              <tr>
+                <th>ユーザー名</th>
+                <td>{{ customer.user_name }}</td>
+              </tr>
+              <tr>
+                <th>メール</th>
+                <td>{{ customer.email }}</td>
+              </tr>
+              <tr>
+                <th>郵便番号</th>
+                <td>〒{{ customer.zip_code }}</td>
+              </tr>
+              <tr>
+                <th>住所</th>
+                <td>{{ customer.full_address }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 購入情報 -->
+
+      <div class="card mb-3">
+        <div class="card-header">購入情報</div>
+        <div class="card-body p-0">
+          <table class="table mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>商品名</th>
+                <th class="text-end">単価</th>
+                <th class="text-end">個数</th>
+                <th class="text-end">小計</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in line_items %}
+              <tr>
+                <td>{{ item.cart_item_name }}</td>
+                <td class="text-end">
+                  ¥{{ item.cart_item_price|floatformat:0 }}
+                </td>
+                <td class="text-end">{{ item.cart_item_quantity }}</td>
+                <td class="text-end">
+                  ￥{{ item.cart_item_subtotal_amount|floatformat:0 }}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            <tfoot class="table-light">
+              <tr>
+                <th colspan="3" class="text-end">プロモ割引</th>
+                <th class="text-end text-danger">-¥プロモーションコード割引</th>
+              </tr>
+              <tr>
+                <th colspan="3" class="text-end">合計金額</th>
+                <th class="text-end fs-5">
+                  ¥{{ customer.total_amount|floatformat:0 }}
+                </th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- 支払い情報 -->
+      <div class="card mb-3">
+        <div class="card-header">支払い情報</div>
+        <div class="card-body p-0">
+          <table class="table table-sm mb-0">
+            <tbody>
+              <tr>
+                <th style="width: 30%">カード名義</th>
+                <td>{{ payment_info.card_holder }}</td>
+              </tr>
+              <tr>
+                <th>カード番号</th>
+                <td>**** **** **** {{ payment_info.last_four_digits }}</td>
+              </tr>
+              <tr>
+                <th>有効期限</th>
+                <td>{{ payment_info.expiration_date }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="small text-muted mt-2 mb-2 px-3">
+            ※ セキュリティの観点から、カード番号は下4桁のみ表示しています。
+          </p>
+        </div>
+      </div>
+      <a
+        href="{% url 'manage:customer_list' %}"
+        class="btn btn-outline-secondary"
+      >
+        購入者一覧へ
+      </a>
+    </div>
+  </body>
+</html>

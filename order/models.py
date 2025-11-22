@@ -24,6 +24,17 @@ class Checkout(models.Model):
     total_quantity = models.IntegerField("合計数量", default=0)
     created_at = models.DateTimeField("注文日時", auto_now_add=True, null=True)
 
+    # 完成系の住所を作成する
+    @property
+    def full_address(self):
+        parts = [
+            self.prefecture,
+            self.city,
+            self.street_address,
+            self.building_name or "",
+        ]
+        return " ".join(p for p in parts if p)
+
 
 # クレジットカード情報モデル
 class Payment(models.Model):
@@ -37,6 +48,11 @@ class Payment(models.Model):
     card_number = models.CharField("カード番号", max_length=19)
     expiration_date = models.CharField("有効期限", max_length=10)
     cvv = models.CharField("セキュリティコード", max_length=3)
+
+    # 最後の４桁だけを取得する
+    @property
+    def last_four_digits(self):
+        return self.card_number[-4:]
 
 
 # 注文商品の明細モデル
