@@ -6,6 +6,7 @@ from django.db import transaction
 from .forms import OrderForm
 from django.urls import reverse_lazy
 from checkout.utils import _ensure_cart_session
+from .send_mail import send_email_settings
 
 
 # DBに請求情報とクレジットカード情報を保存するView
@@ -17,7 +18,7 @@ class Order(FormView):
     # トランザクション処理にする
     @transaction.atomic
     def form_valid(self, form):
-        print("DEBUG: form_validが実行されました")
+
         # form_validは引数にrequestを取らないのselfから取得する
         session_key = _ensure_cart_session(self.request)
         cart_obj = Cart.objects.get(session_id=session_key)
@@ -68,6 +69,9 @@ class Order(FormView):
                 cart_item_quantity=item.quantity,
                 cart_item_subtotal_amount=item.product.price * item.quantity,
             )
+
+        # メールを送信するメソッドを呼び出す
+        send_email_settings(checkout, cart_items)
 
         # カートを削除する
         cart_obj.clear()
