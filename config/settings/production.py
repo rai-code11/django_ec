@@ -14,6 +14,6 @@ EMAIL_HOST = "smtp.sendgrid.net"
 EMIL_PORT = 25
 EMAIL_HOST_USER = "apikey"
 # ここにapi-keyを入れる
-EMAIL_HOST_PASSWORD = environ.get("SENDGRID_API_KEY")
+EMAIL_HOST_PASSWORD = env("SENDGRID_API_KEY")
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "hirai.fpchr064@gmail.com"
