@@ -1,5 +1,6 @@
 from django.core.mail import send_mail
 from textwrap import dedent
+from django.conf import settings
 
 
 def send_email_settings(checkout, cart_items):
@@ -71,6 +72,6 @@ def send_email_settings(checkout, cart_items):
     send_mail(
         subject="ご注文ありがとうございます",
         message=message,
-        from_email="settings.DEFAULT_FROM_EMAIL",
+        from_email=settings.DEFAULT_FROM_EMAIL,
         recipient_list=[checkout.email],
     )
