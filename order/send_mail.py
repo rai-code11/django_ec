@@ -9,7 +9,7 @@ def send_email_settings(checkout, cart_items):
     lines = []
     for item in cart_items:
         lines.append(
-            f"商品名：{item.product.name}\n商品コード：{item.code}\n数量：{total_quanttity}\n小計：{item.product.price * item.quantity}"
+            f"商品名：{item.product.name}\n商品コード：{item.product.code}\n数量：{checkout.total_quantity}\n小計：{item.product.price * item.quantity}"
         )
 
     products_text = "\n".join(lines)
@@ -65,7 +65,7 @@ def send_email_settings(checkout, cart_items):
 お支払い金額：\\ {checkout.total_amount}
 
 """
-        ),
+        )
     )
 
     send_mail(
