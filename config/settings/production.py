@@ -11,7 +11,7 @@ ALLOWED_HOSTS = [".herokuapp.com"]  # herokuapp.comドメインを許可
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 EMAIL_HOST = "smtp.sendgrid.net"
-EMIL_PORT = 587
+EMAIL_PORT = 587
 EMAIL_HOST_USER = "apikey"
 # ここにapi-keyを入れる
 EMAIL_HOST_PASSWORD = env("SENDGRID_API_KEY")
