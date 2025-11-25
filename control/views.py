@@ -43,7 +43,7 @@ class Update(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context["update"] = "update"
+        context["view_type"] = "update"
         return context
 
 

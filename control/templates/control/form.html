@@ -21,7 +21,7 @@
           商品編集フォーム {% endif %}
         </p>
       </div>
-      <form method="post" action="{% url 'manage:create' %}">
+      <form method="post">
         {% csrf_token %}
         <div class="mb-3">
           <label for="{{ form.code.id_for_label }}" class="form-label"
