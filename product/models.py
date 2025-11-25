@@ -36,3 +36,12 @@ class Product(models.Model):
             public_id, width=600, height=700, crop="fill", version=int(time.time())
         )
         return url
+
+    # 商品一覧用のサムネリサイズ設定
+    @property
+    def manage_thumb_url(self):
+        public_id = self.image
+        url, _ = cloudinary_url(
+            public_id, width=50, height=50, crop="fill", version=int(time.time())
+        )
+        return url

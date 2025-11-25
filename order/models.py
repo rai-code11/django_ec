@@ -63,7 +63,7 @@ class LineItem(models.Model):
     checkout = models.ForeignKey(
         Checkout, verbose_name="注文情報", on_delete=models.CASCADE
     )
-    cart_item_name = models.CharField("商品名", max_length=100)
-    cart_item_price = models.IntegerField("価格", default=0)
-    cart_item_quantity = models.IntegerField("数量", default=1)
-    cart_item_subtotal_amount = models.IntegerField("小計", default=0)
+    name = models.CharField("商品名", max_length=100)
+    price = models.IntegerField("価格", default=0)
+    quantity = models.IntegerField("数量", default=1)
+    subtotal_amount = models.IntegerField("小計", default=0)

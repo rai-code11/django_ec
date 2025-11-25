@@ -71,13 +71,11 @@
             <tbody>
               {% for item in line_items %}
               <tr>
-                <td>{{ item.cart_item_name }}</td>
+                <td>{{ item.name }}</td>
+                <td class="text-end">¥{{ item.price|floatformat:0 }}</td>
+                <td class="text-end">{{ item.quantity }}</td>
                 <td class="text-end">
-                  ¥{{ item.cart_item_price|floatformat:0 }}
-                </td>
-                <td class="text-end">{{ item.cart_item_quantity }}</td>
-                <td class="text-end">
-                  ￥{{ item.cart_item_subtotal_amount|floatformat:0 }}
+                  ￥{{ item.subtotal_amount|floatformat:0 }}
                 </td>
               </tr>
               {% endfor %}

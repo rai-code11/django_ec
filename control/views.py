@@ -2,33 +2,52 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from product.models import Product
 from order.models import Checkout, Payment, LineItem
+from .forms import ProductCreateForm
 from django.urls import reverse_lazy
 
-# Create your views here.
 
-
+# 商品の一覧ページを表示するView
 class List(ListView):
     model = Product
     context_object_name = "list"
     template_name = "control/list.html"
 
 
+# 商品新規追加するView
 class Create(CreateView):
     model = Product
-    fields = "__all__"
+    # fields = "__all__" # form_classを使う場合は使えない
     template_name = "control/form.html"
+    form_class = ProductCreateForm
 
     success_url = "/manage/products/list/"
 
+    # formのタイトル表示を切り替えるようのメソッド
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # モードを識別する変数を追加
+        context["view_type"] = "create"
+        return context
 
+
+# 商品の編集をするView
 class Update(UpdateView):
     model = Product
-    fields = "__all__"
+    # fields = "__all__"  # form_classを使う場合は使えない
     template_name = "control/form.html"
+    form_class = ProductCreateForm
 
     success_url = "/manage/products/list/"
 
+    # formのタイトル表示を切り替えるようのメソッド
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
+        context["update"] = "update"
+        return context
+
+
+# 商品の削除をするView
 class Delete(DeleteView):
     model = Product
     template_name = "control/delete.html"

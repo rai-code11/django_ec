@@ -24,8 +24,8 @@ class Order(FormView):
         cart_obj = Cart.objects.get(session_id=session_key)
 
         # 合計金額と合計個数とカートのアイテムを取り出すためにCartのインスタンスに対してメソッドを呼ぶ
-        total_amount = cart_obj.calculate_cart_total_amount()
-        total_quantity = cart_obj.calculate_cart_total_quantity()
+        total_amount = cart_obj.calculate_total_price()
+        total_quantity = cart_obj.calculate_total_quantity()
         cart_items = cart_obj.get_items()
 
         # formsで定義したバリデーションを突破した情報をdataに格納する
@@ -58,29 +58,23 @@ class Order(FormView):
         )
 
         # LineItemに決済情報・クレカ情報・カートアイテム情報を保存する
-        # セッションに基づくカートアイテム情報を取得するために現在のセッションIDを取得する
         # カートインスタンスを取得する
         # LineItemへ保存をするためにカートアイテムインスタンスを取得する
         for item in cart_items:
             LineItem.objects.create(
                 checkout=checkout,
-                cart_item_name=item.product.name,
-                cart_item_price=item.product.price,
-                cart_item_quantity=item.quantity,
-                cart_item_subtotal_amount=item.product.price * item.quantity,
+                name=item.product.name,
+                price=item.product.price,
+                quantity=item.quantity,
+                subtotal_amount=item.product.price * item.quantity,
             )
 
         # メールを送信するメソッドを呼び出す
         send_email_settings(checkout, cart_items)
 
-        # カートを削除する
+        # カートを削除するメソッドを呼び出す
         cart_obj.clear()
 
         messages.success(self.request, "購入ありがとうございます")
 
         return super().form_valid(form)
-
-    # def form_invalid(self, form):
-    #     print("--- DEBUG: form_invalidが実行されました ---")
-    #     print(form.errors)  # どのフィールドがエラーかコンソールに出る
-    #     return super().form_invalid(form)

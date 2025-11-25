@@ -36,7 +36,7 @@ class Cart(models.Model):
         return n_1
 
     # カート内の合計数量を計算するメソッド
-    def calculate_cart_total_quantity(self):
+    def calculate_total_quantity(self):
         # cart_items = CartItem.objects.filter(cart=self)
         # total_quantity = sum(item.quantity for item in cart_items)
 
@@ -50,7 +50,7 @@ class Cart(models.Model):
         return total_quantity if total_quantity is not None else 0
 
     # カートの合計金額を計算するメソッド
-    def calculate_cart_total_amount(self):
+    def calculate_total_price(self):
         total_amount = sum(
             item.quantity * item.product.price for item in self.get_items()
         )
@@ -58,7 +58,6 @@ class Cart(models.Model):
 
     # カートアイテムを消すメソッド
     def clear(self):
-        self.cartitem_set.all().delete()
         self.delete()
 
 

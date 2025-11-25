@@ -5,8 +5,6 @@ from django.shortcuts import redirect, get_object_or_404
 from .utils import _ensure_cart_session
 from django.db.models import F
 
-# Create your views here.
-
 
 # カートの中身を追加、更新するView
 class AddToCartView(View):
@@ -85,7 +83,7 @@ class CartDetailView(LogoContextMixin, TemplateView):
 
         # テンプレートで使う変数をセットする
         context["cart_items"] = cart_items
-        context["total_price"] = cart_obj.calculate_cart_total_amount()
-        context["cart_total_quantity"] = cart_obj.calculate_cart_total_quantity()
+        context["total_price"] = cart_obj.calculate_total_price()
+        context["cart_total_quantity"] = cart_obj.calculate_total_quantity()
 
         return context

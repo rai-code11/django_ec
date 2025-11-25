@@ -10,51 +10,105 @@
       integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
       crossorigin="anonymous"
     />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'control/list.css' %}" />
   </head>
   <body>
-    <div class="container my-4">
-      <h1 class="h4 mb-3">購入者一覧</h1>
-
-      <div class="card">
-        <div class="card-body p-0">
-          <table class="table table-hover align-middle mb-0">
-            <thead class="table-light">
-              <tr>
-                <th style="width: 20%">注文番号</th>
-                <th style="width: 30%">氏名</th>
-                <th class="text-end" style="width: 20%">合計金額</th>
-                <th style="width: 30%">注文日時</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for product in list %}
-              <tr>
-                <th scope="row">{{ product.id }}</th>
-                <td>{{ product.name }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.image }}</td>
-                <td>{{ product.context }}</td>
-                <td>{{ product.code }}</td>
-                <td>{{ product.created_at }}</td>
-                <td>
-                  <a
-                    class="btn btn-primary"
-                    href="{% url 'manage:update' pk=product.id %}"
-                    role="button"
-                    >編集</a
-                  ><a
-                    class="btn btn-primary"
-                    href="{% url 'manage:delete' pk=product.id %}"
-                    role="button"
-                    >削除</a
-                  >
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
+    <div class="container">
+      <div class="button-wrapper">
+        <a href="{% url 'manage:create' %}" class="btn btn-secondary btn-create"
+          >新規登録</a
+        >
       </div>
+      <table class="table">
+        <thead class="table-header">
+          <tr>
+            <th scope="col">商品コード</th>
+            <th scope="col">商品名</th>
+            <th scope="col">価格</th>
+            <th scope="col">商品説明</th>
+            <th scope="col">イメージ画像</th>
+            <th scope="col">登録日時</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {% for product in list %}
+            <th scope="row">{{ product.code }}</th>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}円</td>
+            <td>{{ product.context }}</td>
+            <td>
+              <img
+                src="{{ product.manage_thumb_url }}"
+                alt="{{ product.name }}"
+              />
+            </td>
+            <td>{{ product.created_at }}</td>
+            <td>
+              <a
+                href="{% url 'manage:update' pk=product.id %}"
+                class="btn btn-outline-secondary btn-sm"
+              >
+                編集</a
+              >
+              <a
+                class="btn btn-outline-danger btn-sm"
+                href="{% url 'manage:delete' pk=product.id %}"
+                >削除</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   </body>
 </html>
+
+<!-- <div class="container my-4">
+  <h1 class="h4 mb-3">商品一覧</h1>
+
+  <div class="card">
+    <div class="card-body p-0">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th style="width: 20%">商品管理コード</th>
+            <th style="width: 30%">商品名</th>
+            <th class="text-end" style="width: 20%">価格</th>
+            <th style="width: 30%">商品説明</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product in list %}
+          <tr>
+            <th scope="row">{{ product.id }}</th>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.image }}</td>
+            <td>{{ product.context }}</td>
+            <td>{{ product.code }}</td>
+            <td>{{ product.created_at }}</td>
+            <td>
+              <a
+                class="btn btn-primary"
+                href="{% url 'manage:update' pk=product.id %}"
+                role="button"
+                >編集</a
+              ><a
+                class="btn btn-primary"
+                href="{% url 'manage:delete' pk=product.id %}"
+                role="button"
+                >削除</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> -->

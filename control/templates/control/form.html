@@ -9,12 +9,59 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'control/form.css' %}" />
     <title>Document</title>
   </head>
   <body>
-    <form method="post">
-      {% csrf_token %} {{ form.as_p }}
-      <button type="submit">登録</button>
-    </form>
+    <div class="container">
+      <div class="form-title">
+        <p class="fw-bold fs-3 text-secondary">
+          {% if view_type == 'create' %} 商品登録フォーム {% else %}
+          商品編集フォーム {% endif %}
+        </p>
+      </div>
+      <form method="post" action="{% url 'manage:create' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="{{ form.code.id_for_label }}" class="form-label"
+            >{{ form.code.label }}</label
+          >{{ form.code }}
+        </div>
+        <div class="mb-3">
+          <label for="{{ form.name.id_for_label }}" class="form-label"
+            >{{ form.name.label }}</label
+          >{{ form.name }}
+        </div>
+        <div class="mb-3">
+          <label for="{{ form.price.id_for_label }}" class="form-label"
+            >{{ form.price.label }}</label
+          >
+          {{ form.price }}
+        </div>
+        <div class="mb-3">
+          <label for="{{ form.context.id_for_label }}" class="form-label"
+            >{{ form.context.label }}</label
+          >{{ form.context }}
+        </div>
+        <div class="mb-3">
+          <label for="{{ form.image.id_for_label }}" class="form-label"
+            >{{ form.image.label }}</label
+          >{{ form.image }}
+        </div>
+        <div class="text-center-wrapper">
+          <a href="{% url 'manage:list' %}" class="btn btn-outline-danger">
+            キャンセル </a
+          ><!-- prettier-ignore -->
+          <button type="submit" class="btn btn-outline-primary">
+            {% if view_type == 'create' %} 
+              登録する
+            {% else %} 
+              編集する
+            {% endif %}
+          </button>
+        </div>
+      </form>
+    </div>
   </body>
 </html>
