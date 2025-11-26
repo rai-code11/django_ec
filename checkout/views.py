@@ -20,7 +20,7 @@ class AddToCartView(View):
         # セッションIDからカートを特定。なければそのセッションIDを使ってCartレコードを作成する。
         cart_obj, _ = Cart.objects.get_or_create(session_id=session_key)
 
-        # Cこのカートにこの商品がもう入ってるか確認して、なければ新しくCartItemを作る。あれば既存のCartItemをそのまま返す。
+        # このカートにこの商品がもう入ってるか確認して、なければ新しくCartItemを作る。あれば既存のCartItemをそのまま返す。
         cart_item, item_created = CartItem.objects.get_or_create(
             cart=cart_obj, product_id=product_id, defaults={"quantity": quantity}
         )

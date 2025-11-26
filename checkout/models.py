@@ -26,7 +26,7 @@ class Cart(models.Model):
     class Meta:
         db_table = "cart"
 
-    # カスタムマネージャを呼び出せるようにする
+    # 下記でカスタムマネージャを呼び出せるようにできるがモデルメソッドで呼び出すことにする
     # objects = CartManager()
     session_id = models.CharField(max_length=40, null=True, blank=True, unique=True)
 
