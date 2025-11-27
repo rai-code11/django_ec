@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     "control.apps.ControlConfig",
     "checkout.apps.CheckoutConfig",
     "order.apps.OrderConfig",
+    "promo_code.apps.PromoCodeConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
