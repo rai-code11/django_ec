@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     "product.apps.ProductConfig",
     "control.apps.ControlConfig",
     "checkout.apps.CheckoutConfig",
+    "order.apps.OrderConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -128,6 +129,8 @@ SECRET_KEY = env("SECRET_KEY")
 DATABASES = {
     "default": env.db(),
 }
+
+DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 CLOUDINARY_STORAGE = {
     "CLOUD_NAME": env("CLOUD_NAME"),

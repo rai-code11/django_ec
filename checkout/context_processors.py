@@ -7,7 +7,7 @@ def cart_context_processor(request):
 
     try:
         cart_obj = Cart.objects.get(session_id=session_key)
-        total_quantity = cart_obj.calculate_cart_total_quantity()
+        total_quantity = cart_obj.calculate_total_quantity()
 
         return {"cart_total_quantity": total_quantity}
 

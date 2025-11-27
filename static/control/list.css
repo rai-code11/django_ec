@@ -1,0 +1,16 @@
+.container {
+  margin: 30px 15px 0 15px;
+}
+
+.table-header {
+  border-bottom: 2px solid black;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-create {
+  margin-right: 10px;
+}

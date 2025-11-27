@@ -18,7 +18,6 @@ class Product(models.Model):
     )
     code = models.CharField("商品コード", max_length=50, unique=True)
     created_at = models.DateTimeField("掲載日", auto_now_add=True)
-    cart = models.IntegerField("カート数", default=0)
 
     # リスト用のサムネリサイズ設定
     @property
@@ -35,5 +34,14 @@ class Product(models.Model):
         public_id = self.image
         url, _ = cloudinary_url(
             public_id, width=600, height=700, crop="fill", version=int(time.time())
+        )
+        return url
+
+    # 商品一覧用のサムネリサイズ設定
+    @property
+    def manage_thumb_url(self):
+        public_id = self.image
+        url, _ = cloudinary_url(
+            public_id, width=50, height=50, crop="fill", version=int(time.time())
         )
         return url
