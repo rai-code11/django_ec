@@ -39,7 +39,7 @@ class RemoveFromCartView(View):
 
         session_key = _ensure_cart_session(request)
         # このカートのセッションを特定する
-        cart = get_object_or_404(Cart, session_id=session_key)
+        cart = Cart.objects.get(session_id=session_key)
         # このセッションのカートに紐づくCartItemを削除する
         item = get_object_or_404(CartItem, product_id=product_id, cart=cart)
 
@@ -69,6 +69,7 @@ class CartDetailView(LogoContextMixin, TemplateView):
 
         # セッションIDを取得する
         session_key = _ensure_cart_session(self.request)
+        # セッションIDを使ってカートオボジェクトを取得する。なければ新規作成する
         cart_obj, _ = Cart.objects.get_or_create(session_id=session_key)
 
         # 商品を結合して取得（N+1回避）
