@@ -64,11 +64,21 @@ class Cart(models.Model):
 class CartItem(models.Model):
     class Meta:
         db_table = "cart_items"
-        models.UniqueConstraint(fields=["cart", "product"], name="uniq_cart_product")
+        constraints = [
+            models.UniqueConstraint(
+                fields=["cart", "product"],
+                name="uniq_cart_product",
+            )
+        ]
 
     cart = models.ForeignKey(Cart, verbose_name="カート", on_delete=models.CASCADE)
     product = models.ForeignKey(Product, verbose_name="商品", on_delete=models.CASCADE)
     quantity = models.IntegerField("個数", default=0)
+
+    # 各アイテムの小計を計算する処理
+    def subtotal(self):
+        subtotal = self.quantity * self.product.price
+        return subtotal
 
 
 class Icon(models.Model):

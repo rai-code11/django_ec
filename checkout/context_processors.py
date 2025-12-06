@@ -13,3 +13,4 @@ def cart_context_processor(request):
 
     except Cart.DoesNotExist:
         return {"cart_total_quantity": 0}
+
