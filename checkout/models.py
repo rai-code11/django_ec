@@ -76,7 +76,7 @@ class CartItem(models.Model):
     quantity = models.IntegerField("個数", default=0)
 
     # 各アイテムの小計を計算する処理
-    def subtotal(self):
+    def sub_total(self):
         sub_total = self.quantity * self.product.price
         return sub_total
 
