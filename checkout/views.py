@@ -78,8 +78,6 @@ class CartDetailView(LogoContextMixin, TemplateView):
         #     CartItem.objects.filter(cart=cart_obj).select_related("product").all()
         # )
 
-
-
         # テンプレートで使う変数をセットする
         context["cart_items"] = cart_items
         context["total_price"] = cart_obj.calculate_total_price()

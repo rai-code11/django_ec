@@ -77,8 +77,8 @@ class CartItem(models.Model):
 
     # 各アイテムの小計を計算する処理
     def subtotal(self):
-        subtotal = self.quantity * self.product.price
-        return subtotal
+        sub_total = self.quantity * self.product.price
+        return sub_total
 
 
 class Icon(models.Model):

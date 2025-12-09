@@ -3,7 +3,7 @@ from textwrap import dedent
 from django.conf import settings
 
 
-def send_email_settings(checkout, cart_items):
+def send_email_settings(checkout, cart_items, promocode=None):
 
     full_name = f"{checkout.last_name} {checkout.first_name}"
 
@@ -15,9 +15,8 @@ def send_email_settings(checkout, cart_items):
 
     products_text = "\n".join(lines)
 
-    message = (
-        dedent(
-            f"""ご注文ありがとうございます
+    message = dedent(
+        f"""ご注文ありがとうございます
 ─────────────────────
 
 {full_name}様
@@ -47,12 +46,10 @@ def send_email_settings(checkout, cart_items):
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 {products_text}
 =======================================
-商品合計金額：\\ {checkout.total_amount}
-クーポン割引：\\ 0
+クーポン割引：\\ {promocode.discount}
 お支払い金額：\\ {checkout.total_amount}
 
 """
-        )
     )
 
     send_mail(

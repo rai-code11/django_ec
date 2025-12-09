@@ -47,8 +47,8 @@ class PromoCodeDiscountView(LogoContextMixin, FormView):
         # 割引適用後の合計を計算する
         discounted_total = promo.get_discount_amount(total_amount)
 
-        # プロモコードを使用済みにするメソッドを呼ぶ
-        promo.mark_used()
+        # 決済処理でプロモコードを特定できるようにセッションにidを渡す
+        self.request.session["promo_id"] = promo.id
 
         # プロモコード適応メッセを表示する
         messages.success(self.request, "プロモコードが適応されました。")
