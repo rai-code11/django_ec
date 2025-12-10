@@ -1,4 +1,6 @@
 import environ
+from django.contrib.messages import constants as messages
+
 
 from pathlib import Path
 
@@ -20,6 +22,7 @@ INSTALLED_APPS = [
     "control.apps.ControlConfig",
     "checkout.apps.CheckoutConfig",
     "order.apps.OrderConfig",
+    "promo_code.apps.PromoCodeConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -145,3 +148,9 @@ BASICAUTH_USERS = {
 
 # シリアライズ用
 SESSION_SERIALIZER = "django.contrib.sessions.serializers.JSONSerializer"
+
+# メッセージの色切り替え用
+# Bootstrap と名前がズレるため設定をしておく
+MESSAGE_TAGS = {
+    messages.ERROR: "danger",
+}

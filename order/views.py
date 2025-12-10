@@ -7,6 +7,7 @@ from .forms import OrderForm
 from django.urls import reverse_lazy
 from checkout.utils import _ensure_cart_session
 from .send_mail import send_email_settings
+from promo_code.models import PromoCode
 
 
 # DBに請求情報とクレジットカード情報を保存するView
@@ -27,6 +28,19 @@ class Order(FormView):
         total_amount = cart_obj.calculate_total_price()
         total_quantity = cart_obj.calculate_total_quantity()
         cart_items = cart_obj.get_items()
+
+        # セッションからpromo_idを取り出す
+        promo = None
+        promo_id = self.request.session.get("promo_id")
+
+        if promo_id is not None:
+            try:
+                promo = PromoCode.objects.get(pk=promo_id)
+                # 割引を適用した合計金額に更新
+                total_amount = promo.get_discount_amount(total_amount)
+            except PromoCode.DoesNotExist:
+                # プロモが消えていた場合は何もしないで通常金額で進める
+                promo = None
 
         # formsで定義したバリデーションを突破した情報をdataに格納する
         data = form.cleaned_data
@@ -69,8 +83,13 @@ class Order(FormView):
                 subtotal_amount=item.product.price * item.quantity,
             )
 
+        # クーポン側と紐づける
+        if promo is not None:
+            promo.mark_used(checkout)
+            del self.request.session["promo_id"]
+
         # メールを送信するメソッドを呼び出す
-        send_email_settings(checkout, cart_items)
+        send_email_settings(checkout, cart_items, promo)
 
         # カートを削除するメソッドを呼び出す
         cart_obj.clear()

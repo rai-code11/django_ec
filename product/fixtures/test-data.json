@@ -105,5 +105,85 @@
       "name": "決済アイコン",
       "image": "cute-owl-illustration-vector-black-260nw-2288387705_npffoh"
     }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 1,
+      "code": "ghd5jZG",
+      "discount": 100
+    }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 2,
+      "code": "l39PwBj",
+      "discount": 200
+    }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 3,
+      "code": "LFnQCT3",
+      "discount": 300
+    }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 4,
+      "code": "EARV8gj",
+      "discount": 400
+    }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 5,
+      "code": "l7igMij",
+      "discount": 500
+    }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 6,
+      "code": "IOgJ5Ql",
+      "discount": 600
+    }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 7,
+      "code": "otAX9TC",
+      "discount": 700
+    }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 8,
+      "code": "3rAYRPx",
+      "discount": 800
+    }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 9,
+      "code": "bhVCXcZ",
+      "discount": 900
+    }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 10,
+      "code": "w2arMv7",
+      "discount": 1000
+    }
   }
 ]

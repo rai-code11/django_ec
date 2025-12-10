@@ -9,10 +9,9 @@ from django.db.models import F
 # カートの中身を追加、更新するView
 class AddToCartView(View):
 
-    # セッションIDをrequest.session.session_keyで取得して、もしCartになければ追加する。
+    # Formから送信された情報を受け取るためにpostメソッドを定義
     def post(self, request, product_id):
-        # Formから送信された数量を取得する
-        # 数値が送信されたらそれを使い、送信されなければ1を使う
+        # Formから送信された数量を取得し、数値が送信されたらそれを使い、送信されなければ1を使う
         quantity = int(request.POST.get("quantity", 1))
 
         # セッションIDを取得する
@@ -20,11 +19,12 @@ class AddToCartView(View):
         # セッションIDからカートを特定。なければそのセッションIDを使ってCartレコードを作成する。
         cart_obj, _ = Cart.objects.get_or_create(session_id=session_key)
 
-        # このカートにこの商品がもう入ってるか確認して、なければ新しくCartItemを作る。あれば既存のCartItemをそのまま返す。
+        # 指定したカートに商品が既に入っていればレコードを取得し、なければ新しくCartItemを作る。
         cart_item, item_created = CartItem.objects.get_or_create(
             cart=cart_obj, product_id=product_id, defaults={"quantity": quantity}
         )
 
+        # 新しく生成されなかった場合、
         if not item_created:
             CartItem.objects.filter(pk=cart_item.pk).update(
                 quantity=F("quantity") + quantity
@@ -77,10 +77,6 @@ class CartDetailView(LogoContextMixin, TemplateView):
         # cart_items = (
         #     CartItem.objects.filter(cart=cart_obj).select_related("product").all()
         # )
-
-        # 各アイテムの小計を計算するメソッド
-        for item in cart_items:
-            item.subtotal = item.quantity * item.product.price
 
         # テンプレートで使う変数をセットする
         context["cart_items"] = cart_items

@@ -17,4 +17,5 @@ urlpatterns = [
     ),
     path("checkout/", include("checkout.urls")),
     path("order/", include("order.urls")),
+    path("promo/", include("promo_code.urls")),
 ]
