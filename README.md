@@ -1,7 +1,7 @@
 
 # Django EC Site
 
-Django（PythonのWebフレームワーク）で作ったECサイトです。  
+Djangoで作ったECサイトです。  
 商品を見て、カートに入れて、購入（チェックアウト）までできるようにしています。
 
 本アプリは **Docker（docker compose）** を使って開発・起動できます。
