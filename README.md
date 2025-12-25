@@ -25,8 +25,8 @@ Djangoで作ったECサイトです。
 
 ---
 
-## デモ（Heroku）
-- Demo URL: https://safe-coast-43605-828002722823.herokuapp.com/products/
+## URL
+- ECサイト：URL: https://safe-coast-43605-828002722823.herokuapp.com/products/
 
 ---
 
@@ -34,6 +34,7 @@ Djangoで作ったECサイトです。
 - Backend: Django
 - DB: PostgreSQL
 - UI: Bootstrap
+- image:cloudinary
 - Container: Docker / Docker Compose
 - Deploy: Heroku
 
@@ -108,9 +109,6 @@ Djangoの標準の `/admin` とは別に、管理者用ページを作ってい�
 * 例：`/manage/products`
 
 このページは **Basic認証** で守っています。
-
-* ユーザー名：`admin`
-* パスワード：`pw`
 
 ---
 
