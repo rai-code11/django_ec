@@ -106,7 +106,13 @@ docker compose down -v
 
 Djangoの標準の `/admin` とは別に、管理者用ページを作っています。
 
-* 例：`/manage/products`
+・管理者用、商品情報詳細ページ
+
+https://safe-coast-43605-828002722823.herokuapp.com/manage/products/list/
+
+・管理者用、購入者と商品
+
+https://safe-coast-43605-828002722823.herokuapp.com/manage/products/customer/
 
 このページは **Basic認証** で守っています。
 
