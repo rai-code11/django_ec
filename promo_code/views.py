@@ -1,6 +1,5 @@
 from django.views.generic import FormView
 from .forms import PromoForm
-from .models import PromoCode
 from checkout.models import Cart
 from django.contrib import messages
 from checkout.utils import _ensure_cart_session
