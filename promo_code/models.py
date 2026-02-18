@@ -24,7 +24,7 @@ class PromoCode(models.Model):
         unique=True,
         validators=[
             RegexValidator(
-                regex=r"^[A-Za-z1-9]{7}$",
+                regex=r"^[A-Za-z0-9]{7}$",
                 message="プロモコードは英数字7桁で入力してください",
             )
         ],

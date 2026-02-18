@@ -5,7 +5,7 @@
       "id": 1,
       "name": "ベンガルワシミミズク",
       "price": 400000,
-      "image": "bengaruwasimimizuku_xnvclc",
+      "image": "bengaruwasimimizuku_csuewm",
       "code": "SKK: AAAAA",
       "context": "テストテストテスト",
       "created_at": "2025-10-24T00:00:00Z"
@@ -17,7 +17,7 @@
       "id": 2,
       "name": "シロフクロウ",
       "price": 600000,
-      "image": "sirofukurou_sq0bng",
+      "image": "sirofukurou_gkmyrh",
       "code": "SKK: BBBBB",
       "context": "テストテストテスト",
       "created_at": "2025-10-23T00:00:00Z"
@@ -30,7 +30,7 @@
       "id": 3,
       "name": "モリフクロウ",
       "price": 350000,
-      "image": "morifukurou_ukp5ky",
+      "image": "morifukurou_p6iqkx",
       "code": "SKK: CCCCC",
       "context": "テストテストテスト",
       "created_at": "2025-10-22T00:00:00Z"
@@ -43,7 +43,7 @@
       "id": 4,
       "name": "シマフクロウ",
       "price": 750000,
-      "image": "simafukurou_vsylaz",
+      "image": "simafukurou_voc4mw",
       "code": "SKK: DDDDD",
       "context": "テストテストテスト",
       "created_at": "2025-10-21T00:00:00Z"
@@ -56,7 +56,7 @@
       "id": 5,
       "name": "シベリアワシミミズク",
       "price": 880000,
-      "image": "siberiawasimimizuku_bq1qmq",
+      "image": "siberiawasimimizuku_bydpur",
       "code": "SKK: EEEEE",
       "context": "テストテストテスト",
       "created_at": "2025-10-20T00:00:00Z"
@@ -68,7 +68,7 @@
       "id": 6,
       "name": "メンフクロウ",
       "price": 100000,
-      "image": "menfukurou_y79sbs",
+      "image": "menfukurou_c3dn6k",
       "code": "SKK: FFFFF",
       "context": "テストテストテスト",
       "created_at": "2025-10-19T00:00:00Z"
@@ -80,7 +80,7 @@
       "id": 7,
       "name": "アフリカオオコノハズク",
       "price": 400000,
-      "image": "afurikaookonohazuku_mrmry0",
+      "image": "afurikaookonohazuku_qyqklk",
       "code": "SKK: GGGGG",
       "context": "テストテストテスト",
       "created_at": "2025-10-18T00:00:00Z"
@@ -92,7 +92,7 @@
       "id": 8,
       "name": "コキンメフクロウ",
       "price": 390000,
-      "image": "kokinmefukurou_uxvdls",
+      "image": "kokinmefukurou_glasxr",
       "code": "SKK: HHHHHH",
       "context": "テストテストテスト",
       "created_at": "2025-10-17T00:00:00Z"
