@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
@@ -81,9 +81,14 @@
               {% endfor %}
             </tbody>
             <tfoot class="table-light">
+              {% if promo %}
               <tr>
-                <th colspan="3" class="text-end">プロモ割引</th>
-                <th class="text-end text-danger">-¥プロモーションコード割引</th>
+                <th colspan="3" class="text-end">
+                  プロモ割引({{ promo.code }})
+                </th>
+                <th class="text-end text-danger">
+                  -¥{{ promo.discount|floatformat:0 }}
+                </th>
               </tr>
               <tr>
                 <th colspan="3" class="text-end">合計金額</th>
@@ -91,6 +96,12 @@
                   ¥{{ customer.total_amount|floatformat:0 }}
                 </th>
               </tr>
+              {% else %}
+              <tr>
+                <th colspan="3" class="text-end">合計金額</th>
+                <th class="text-end fs-5">¥{{ total_price|floatformat:0 }}</th>
+              </tr>
+              {% endif %}
             </tfoot>
           </table>
         </div>
