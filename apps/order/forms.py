@@ -19,5 +19,3 @@ class OrderForm(forms.Form):
     expiration_date = forms.CharField(max_length=20)
     cvv = forms.CharField(max_length=4, min_length=3)
 
-
-# あとでもっと厳しい制約をつける

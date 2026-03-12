@@ -37,11 +37,21 @@ class PromoCodeDiscountView(LogoContextMixin, FormView):
         # 今のユーザーのカートを取得
         cart_obj = self.get_cart_obj()
 
-        # 元の合計金額を計算する
-        total_amount = cart_obj.calculate_total_price()
-
         # フォーム側で保持しておいた PromoCode インスタンスを取得する
         promo = form.promo
+
+        # 同一決済で既に適用済みのプロモコードかチェック
+        if self.request.session.get("promo_id") == promo.id:
+            messages.error(self.request, "すでに適応済みのプロモコードです。")
+            total_amount = cart_obj.calculate_total_price()
+            discounted_total = promo.get_discount_amount(total_amount)
+            context = self.get_context_data(form=form)
+            context["promo"] = promo
+            context["discounted_total"] = discounted_total
+            return self.render_to_response(context)
+
+        # 元の合計金額を計算する
+        total_amount = cart_obj.calculate_total_price()
 
         # 割引適用後の合計を計算する
         discounted_total = promo.get_discount_amount(total_amount)
