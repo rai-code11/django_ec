@@ -192,37 +192,45 @@
               method="POST"
               action="{% url 'order:order' %}"
             >
-              {% csrf_token %}
+              {% csrf_token %} {% if form and form.non_field_errors %}
+              <div class="alert alert-danger" role="alert">
+                {{ form.non_field_errors }}
+              </div>
+              {% endif %}
               <div class="row g-3">
                 <div class="col-sm-6">
                   <label for="firstName" class="form-label">姓</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control {% if form and form.last_name.errors %}is-invalid{% endif %}"
                     id="firstName"
                     placeholder="山田"
                     name="last_name"
-                    value=""
+                    value="{% if form %}{{ form.last_name.value|default:'' }}{% endif %}"
                     required
                   />
-                  <div class="invalid-feedback">
-                    Valid first name is required.
+                  {% if form and form.last_name.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.last_name.errors }}
                   </div>
+                  {% endif %}
                 </div>
                 <div class="col-sm-6">
                   <label for="lastName" class="form-label">名</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control {% if form and form.first_name.errors %}is-invalid{% endif %}"
                     id="lastName"
                     placeholder="梟"
                     name="first_name"
-                    value=""
+                    value="{% if form %}{{ form.first_name.value|default:'' }}{% endif %}"
                     required
                   />
-                  <div class="invalid-feedback">
-                    Valid last name is required.
+                  {% if form and form.first_name.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.first_name.errors }}
                   </div>
+                  {% endif %}
                 </div>
                 <div class="col-12">
                   <label for="username" class="form-label">ユーザー名</label>
@@ -230,15 +238,18 @@
                     <span class="input-group-text">@</span>
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control {% if form and form.user_name.errors %}is-invalid{% endif %}"
                       id="username"
                       placeholder="Username"
                       name="user_name"
+                      value="{% if form %}{{ form.user_name.value|default:'' }}{% endif %}"
                       required
                     />
-                    <div class="invalid-feedback">
-                      Your username is required.
+                    {% if form and form.user_name.errors %}
+                    <div class="invalid-feedback d-block">
+                      {{ form.user_name.errors }}
                     </div>
+                    {% endif %}
                   </div>
                 </div>
                 <div class="col-12">
@@ -247,48 +258,69 @@
                   ></label>
                   <input
                     type="email"
-                    class="form-control"
+                    class="form-control {% if form and form.email.errors %}is-invalid{% endif %}"
                     id="email"
                     placeholder="you@example.com"
                     name="email"
+                    value="{% if form %}{{ form.email.value|default:'' }}{% endif %}"
+                    required
                   />
-                  <div class="invalid-feedback">
-                    Please enter a valid email address for shipping updates.
+                  {% if form and form.email.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.email.errors }}
                   </div>
+                  {% endif %}
                 </div>
                 <div class="col-12">
                   <label for="zip" class="form-label">郵便番号</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control {% if form and form.zip_code.errors %}is-invalid{% endif %}"
                     id="zip"
                     name="zip_code"
                     placeholder="123-4567"
+                    value="{% if form %}{{ form.zip_code.value|default:'' }}{% endif %}"
                     required
                   />
-                  <div class="invalid-feedback">
-                    Please enter your shipping address.
+                  {% if form and form.zip_code.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.zip_code.errors }}
                   </div>
+                  {% endif %}
                 </div>
                 <div class="col-12">
                   <label for="prefecture" class="form-label">都道府県</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control {% if form and form.prefecture.errors %}is-invalid{% endif %}"
                     id="prefecture"
                     name="prefecture"
                     placeholder="---------"
+                    value="{% if form %}{{ form.prefecture.value|default:'' }}{% endif %}"
+                    required
                   />
+                  {% if form and form.prefecture.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.prefecture.errors }}
+                  </div>
+                  {% endif %}
                 </div>
                 <div class="col-12">
                   <label for="city" class="form-label">市区町村</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control {% if form and form.city.errors %}is-invalid{% endif %}"
                     id="city"
                     name="city"
                     placeholder="〇〇市〇〇区〇〇町"
+                    value="{% if form %}{{ form.city.value|default:'' }}{% endif %}"
+                    required
                   />
+                  {% if form and form.city.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.city.errors }}
+                  </div>
+                  {% endif %}
                 </div>
                 <div class="col-12">
                   <label for="street_address" class="form-label"
@@ -296,11 +328,18 @@
                   >
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control {% if form and form.street_address.errors %}is-invalid{% endif %}"
                     id="street_address"
                     name="street_address"
                     placeholder="1-2-3"
+                    value="{% if form %}{{ form.street_address.value|default:'' }}{% endif %}"
+                    required
                   />
+                  {% if form and form.street_address.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.street_address.errors }}
+                  </div>
+                  {% endif %}
                 </div>
                 <div class="col-12">
                   <label for="building_name" class="form-label"
@@ -308,13 +347,18 @@
                   >
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control {% if form and form.building_name.errors %}is-invalid{% endif %}"
                     id="building_name"
                     name="building_name"
                     placeholder="〇〇マンション101号"
+                    value="{% if form %}{{ form.building_name.value|default:'' }}{% endif %}"
                     required
                   />
-                  <div class="invalid-feedback">Zip code required.</div>
+                  {% if form and form.building_name.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.building_name.errors }}
+                  </div>
+                  {% endif %}
                 </div>
               </div>
               <hr class="my-4" />
@@ -325,40 +369,52 @@
                   <label for="cc-name" class="form-label">名義人</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control {% if form and form.card_holder.errors %}is-invalid{% endif %}"
                     id="cc-name"
                     name="card_holder"
                     placeholder="FUKURO YAMADA"
+                    value="{% if form %}{{ form.card_holder.value|default:'' }}{% endif %}"
                     required
                   />
-
-                  <div class="invalid-feedback">Name on card is required</div>
+                  {% if form and form.card_holder.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.card_holder.errors }}
+                  </div>
+                  {% endif %}
                 </div>
                 <div class="col-md-6">
                   <label for="cc-number" class="form-label">カード番号</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control {% if form and form.card_number.errors %}is-invalid{% endif %}"
                     id="cc-number"
                     name="card_number"
                     placeholder="例：1234 5678 9012 3456"
+                    value="{% if form %}{{ form.card_number.value|default:'' }}{% endif %}"
                     required
                   />
-                  <div class="invalid-feedback">
-                    Credit card number is required
+                  {% if form and form.card_number.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.card_number.errors }}
                   </div>
+                  {% endif %}
                 </div>
                 <div class="col-md-3">
                   <label for="cc-expiration" class="form-label">有効期限</label>
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control {% if form and form.expiration_date.errors %}is-invalid{% endif %}"
                     id="cc-expiration"
                     name="expiration_date"
                     placeholder="例：2026/12/31"
+                    value="{% if form %}{{ form.expiration_date.value|default:'' }}{% endif %}"
                     required
                   />
-                  <div class="invalid-feedback">Expiration date required</div>
+                  {% if form and form.expiration_date.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.expiration_date.errors }}
+                  </div>
+                  {% endif %}
                 </div>
                 <div class="col-md-3">
                   <label for="cc-cvv" class="form-label"
@@ -366,13 +422,18 @@
                   >
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control {% if form and form.cvv.errors %}is-invalid{% endif %}"
                     id="cc-cvv"
                     name="cvv"
                     placeholder="例：123"
+                    value="{% if form %}{{ form.cvv.value|default:'' }}{% endif %}"
                     required
                   />
-                  <div class="invalid-feedback">Security code required</div>
+                  {% if form and form.cvv.errors %}
+                  <div class="invalid-feedback d-block">
+                    {{ form.cvv.errors }}
+                  </div>
+                  {% endif %}
                 </div>
               </div>
               <hr class="my-4" />

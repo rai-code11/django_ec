@@ -1,30 +1,14 @@
 from django.views.generic import FormView
 from .forms import PromoForm
-from apps.cart.models import Cart
 from django.contrib import messages
-from apps.cart.utils import _ensure_cart_session
-from apps.cart.views import LogoContextMixin
+from apps.cart.views import LogoContextMixin, CartContextMixin
 
 
 # フォームメソッドやモデルメソッドを使いプロモ処理する
-class PromoCodeDiscountView(LogoContextMixin, FormView):
+# カート表示用コンテキストは CartContextMixin（cartアプリ）に委譲
+class PromoCodeDiscountView(LogoContextMixin, CartContextMixin, FormView):
     template_name = "cart/cart.html"
     form_class = PromoForm
-
-    # カートを特定しその中身を取得するメソッド
-    def get_cart_obj(self):
-        session_key = _ensure_cart_session(self.request)
-        return Cart.objects.get(session_id=session_key)
-
-    # カート系のコンテキストを全部まとめるメソッド
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        cart_obj = self.get_cart_obj()
-        context["cart_items"] = cart_obj.get_items()
-        context["cart_total_quantity"] = cart_obj.calculate_total_quantity()
-        context["total_price"] = cart_obj.calculate_total_price()
-        return context
 
     # Formバリデーションを通過した際に処理するメソッド
     def form_valid(self, form):
@@ -43,33 +27,13 @@ class PromoCodeDiscountView(LogoContextMixin, FormView):
         # 同一決済で既に適用済みのプロモコードかチェック
         if self.request.session.get("promo_id") == promo.id:
             messages.error(self.request, "すでに適応済みのプロモコードです。")
-            total_amount = cart_obj.calculate_total_price()
-            discounted_total = promo.get_discount_amount(total_amount)
-            context = self.get_context_data(form=form)
-            context["promo"] = promo
-            context["discounted_total"] = discounted_total
-            return self.render_to_response(context)
-
-        # 元の合計金額を計算する
-        total_amount = cart_obj.calculate_total_price()
-
-        # 割引適用後の合計を計算する
-        discounted_total = promo.get_discount_amount(total_amount)
+            return self.render_to_response(self.get_context_data(form=form))
 
         # 決済処理でプロモコードを特定できるようにセッションにidを渡す
         self.request.session["promo_id"] = promo.id
-
-        # プロモコード適応メッセを表示する
         messages.success(self.request, "プロモコードが適応されました。")
-
-        # テンプレでdiscounted_totalを使うためにget_context_dataに渡す
-        # discountもつけるようにしておく
-
-        context = self.get_context_data(form=form)
-        context["promo"] = promo
-        context["discounted_total"] = discounted_total
-
-        return self.render_to_response(context)
+        # 割引後表示は CartContextMixin が session の promo_id を見て context に載せる
+        return self.render_to_response(self.get_context_data(form=form))
 
     # バリデーション失敗処理を書く
     def form_invalid(self, form):

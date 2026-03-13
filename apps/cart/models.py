@@ -8,7 +8,6 @@ class Cart(models.Model):
     class Meta:
         db_table = "cart"
 
-    # 下記でカスタムマネージャを呼び出せるようにできるがモデルメソッドで呼び出すことにする
     session_id = models.CharField(max_length=40, null=True, unique=True)
 
     # このCartに紐づいているCartItemを、Product情報も一緒に全部取ってくる

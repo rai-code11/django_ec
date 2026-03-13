@@ -10,7 +10,7 @@ from .send_mail import send_email_settings
 from apps.promo_code.models import PromoCode
 
 
-# DBに請求情報とクレジットカード情報を保存するView
+# DBに請求情報とクレジットカード情報を保存し決済処理とメールを送るView
 class Order(FormView):
     template_name = "cart/cart.html"
     form_class = OrderForm
@@ -20,7 +20,7 @@ class Order(FormView):
     @transaction.atomic
     def form_valid(self, form):
 
-        # form_validは引数にrequestを取らないのselfから取得する
+        # form_validは引数にrequestを取らないのでselfから取得する
         session_key = _ensure_cart_session(self.request)
         cart_obj = Cart.objects.get(session_id=session_key)
 
@@ -35,7 +35,7 @@ class Order(FormView):
 
         if promo_id is not None:
             try:
-                promo = PromoCode.objects.get(pk=promo_id)
+                promo = PromoCode.objects.get(id=promo_id)
                 # 割引を適用した合計金額に更新
                 total_amount = promo.get_discount_amount(total_amount)
             except PromoCode.DoesNotExist:
@@ -97,3 +97,10 @@ class Order(FormView):
         messages.success(self.request, "購入ありがとうございます")
 
         return super().form_valid(form)
+
+        # バリデーション失敗処理を書く
+
+    def form_invalid(self, form):
+        messages.error(self.request, "入力必須項目を全て入力してください")
+        context = self.get_context_data(form=form)
+        return self.render_to_response(context)

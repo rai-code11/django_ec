@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 from django.shortcuts import redirect, get_object_or_404
 from .utils import _ensure_cart_session
 from django.db.models import F
+from apps.promo_code.models import PromoCode
 
 
 # カートの中身を追加、更新するView
@@ -11,7 +12,7 @@ class AddToCartView(View):
 
     # Formから送信された情報を受け取るためにpostメソッドを定義
     def post(self, request, product_id):
-        # Formから送信された数量を取得し、数値が送信されたらそれを使い、送信されなければ1を使う
+        # 送信された数量を取得し、数値が送信されたらそれを使い、送信されなければ1を使う
         quantity = int(request.POST.get("quantity", 1))
 
         # セッションIDを取得する
@@ -26,10 +27,10 @@ class AddToCartView(View):
 
         # 新しく生成されなかった場合、
         if not item_created:
-            CartItem.objects.filter(pk=cart_item.pk).update(
+            CartItem.objects.filter(id=cart_item.id).update(
                 quantity=F("quantity") + quantity
             )
-
+        # 元いたページにリダイレクトする
         return redirect(request.META.get("HTTP_REFERER"))
 
 
@@ -59,26 +60,35 @@ class LogoContextMixin:
         return context
 
 
-# カートの中身を表示するView
-class CartDetailView(LogoContextMixin, TemplateView):
-    template_name = "cart/cart.html"
+# カートページ用のコンテキストを提供するMixin（cart/cart.html 用）
+class CartContextMixin:
+    def get_cart_obj(self):
+        session_key = _ensure_cart_session(self.request)
+        cart_obj, _ = Cart.objects.get_or_create(session_id=session_key)
+        return cart_obj
 
-    # カートの中身や合計金額を取得してテンプレートに渡す
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        # セッションIDを取得する
-        session_key = _ensure_cart_session(self.request)
-        # セッションIDを使ってカートオボジェクトを取得する。なければ新規作成する
-        cart_obj, _ = Cart.objects.get_or_create(session_id=session_key)
-
-        # 商品と小計をセットで取得（小計の計算はCartモデルで実施）
-        cart_items_with_subtotals = cart_obj.get_items_with_subtotals()
-
-        # テンプレートで使う変数をセットする
+        cart_obj = self.get_cart_obj()
         context["cart"] = cart_obj
-        context["cart_items_with_subtotals"] = cart_items_with_subtotals
-        context["total_price"] = cart_obj.calculate_total_price()
+        context["cart_items_with_subtotals"] = (
+            cart_obj.get_items_with_subtotals()
+        )
+        total_price = cart_obj.calculate_total_price()
+        context["total_price"] = total_price
         context["cart_total_quantity"] = cart_obj.calculate_total_quantity()
 
+        # セッションにプロモ適用済みなら割引後合計を context に追加（表示は cart の責務）
+        promo_id = self.request.session.get("promo_id")
+        if promo_id:
+            promo = get_object_or_404(PromoCode, id=promo_id)
+            context["promo"] = promo
+            context["discounted_total"] = promo.get_discount_amount(
+                total_price
+            )
         return context
+
+
+# カートの中身を表示するView
+class CartDetailView(LogoContextMixin, CartContextMixin, TemplateView):
+    template_name = "cart/cart.html"
