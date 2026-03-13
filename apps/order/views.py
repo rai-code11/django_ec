@@ -1,6 +1,7 @@
 from django.views.generic import FormView
 from .models import Checkout, Payment, LineItem
 from apps.cart.models import Cart
+from apps.cart.views import LogoContextMixin, CartContextMixin
 from django.contrib import messages
 from django.db import transaction
 from .forms import OrderForm
@@ -11,7 +12,8 @@ from apps.promo_code.models import PromoCode
 
 
 # DBに請求情報とクレジットカード情報を保存し決済処理とメールを送るView
-class Order(FormView):
+# cart/cart.html で必要な cart / total_price 等を渡すため Mixin を継承
+class Order(LogoContextMixin, CartContextMixin, FormView):
     template_name = "cart/cart.html"
     form_class = OrderForm
     success_url = reverse_lazy("product:product_list")
