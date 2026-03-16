@@ -25,7 +25,7 @@ class AddToCartView(View):
             cart=cart_obj, product_id=product_id, defaults={"quantity": quantity}
         )
 
-        # 新しく生成されなかった場合、
+        # すでにカートにあるアイテムが追加された場合の処理
         if not item_created:
             CartItem.objects.filter(id=cart_item.id).update(
                 quantity=F("quantity") + quantity
