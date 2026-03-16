@@ -1,8 +1,6 @@
+from pathlib import Path
 import environ
 from django.contrib.messages import constants as messages
-
-
-from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -18,11 +16,11 @@ environ.Env.read_env(env_file=str(BASE_DIR) + "/.env")
 # Application definition
 
 INSTALLED_APPS = [
-    "product.apps.ProductConfig",
-    "control.apps.ControlConfig",
-    "checkout.apps.CheckoutConfig",
-    "order.apps.OrderConfig",
-    "promo_code.apps.PromoCodeConfig",
+    "apps.product.apps.ProductConfig",
+    "apps.manage.apps.ManageConfig",
+    "apps.cart.apps.CartConfig",
+    "apps.order.apps.OrderConfig",
+    "apps.promo_code.apps.PromoCodeConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -57,7 +55,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "checkout.context_processors.cart_context_processor",
+                "apps.cart.context_processors.cart_context_processor",
             ],
         },
     },

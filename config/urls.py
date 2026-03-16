@@ -8,14 +8,14 @@ urlpatterns = [
     path("hello/", TemplateView.as_view(template_name="hello.html")),
     path(
         "products/",
-        include("product.urls"),
+        include("apps.product.urls"),
     ),
     path("", TemplateView.as_view(template_name="product/list.html")),
     path(
         "manage/products/",
-        include("control.urls"),
+        include("apps.manage.urls"),
     ),
-    path("checkout/", include("checkout.urls")),
-    path("order/", include("order.urls")),
-    path("promo/", include("promo_code.urls")),
+    path("cart/", include("apps.cart.urls")),
+    path("order/", include("apps.order.urls")),
+    path("promo/", include("apps.promo_code.urls")),
 ]

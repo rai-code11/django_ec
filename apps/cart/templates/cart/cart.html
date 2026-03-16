@@ -1,0 +1,415 @@
+<!-- prettier-ignore -->
+{% extends "base_ec.html" %}
+<!-- prettier-ignore -->
+{% load static %}
+<!-- prettier-ignore -->
+{% block title %}決済画面 - Modern Chic{% endblock %}
+<!-- prettier-ignore -->
+{% block body_extra %}bg-body-tertiary{% endblock %}
+<!-- prettier-ignore -->
+{% block extra_css %}
+<style>
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+  .b-example-divider {
+    width: 100%;
+    height: 3rem;
+    background-color: #0000001a;
+    border: solid rgba(0, 0, 0, 0.15);
+    border-width: 1px 0;
+    box-shadow:
+      inset 0 0.5em 1.5em #0000001a,
+      inset 0 0.125em 0.5em #00000026;
+  }
+  .btn-bd-primary {
+    --bd-violet-bg: #712cf9;
+    --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+    --bs-btn-font-weight: 600;
+    --bs-btn-color: var(--bs-white);
+    --bs-btn-bg: var(--bd-violet-bg);
+    --bs-btn-border-color: var(--bd-violet-bg);
+    --bs-btn-hover-bg: #6528e0;
+    --bs-btn-hover-border-color: #6528e0;
+  }
+</style>
+<!-- prettier-ignore -->
+{% endblock %}
+<!-- prettier-ignore -->
+{% block content %}
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="check2" viewBox="0 0 16 16">
+    <path
+      d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"
+    ></path>
+  </symbol>
+</svg>
+<div class="container">
+  <main>
+    <div class="row g-5 pt-4">
+      <div class="col-md-7 col-lg-8">
+        <a
+          href="{% url 'product:product_list' %}"
+          class="btn btn-outline-secondary"
+          >商品一覧へ</a
+        >
+      </div>
+    </div>
+    <div class="py-4 text-center">
+      <h1 class="h2">決済画面</h1>
+      <p class="lead text-body-secondary mb-0">
+        決済情報を入力いただき、最後に購入するボタンを押してください。
+      </p>
+    </div>
+    <div class="row g-5">
+      <div class="col-md-5 col-lg-4 order-md-last">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-primary">カート</span>
+          <span class="badge bg-primary rounded-pill"
+            >{{ cart_total_quantity }}</span
+          >
+        </h4>
+
+        <ul class="list-group mb-3">
+          {% for cart_item, subtotal in cart_items_with_subtotals %}
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">{{ cart_item.product.name }}</h6>
+              <small class="text-body-secondary"
+                >数量：{{ cart_item.quantity }}</small
+              >
+            </div>
+            <div class="d-flex align-items-center">
+              <span
+                class="text-body-secondary text-end me-3"
+                style="min-width: 80px"
+                >￥{{ subtotal }}</span
+              >
+
+              <form
+                method="POST"
+                action="{% url 'cart:remove_from_cart' product_id=cart_item.product.id %}"
+              >
+                {% csrf_token %}
+                <button
+                  type="submit"
+                  class="btn btn-danger"
+                  style="
+                    --bs-btn-padding-y: 0.25rem;
+                    --bs-btn-padding-x: 0.5rem;
+                    --bs-btn-font-size: 0.75rem;
+                  "
+                >
+                  削除
+                </button>
+              </form>
+            </div>
+          </li>
+          {% endfor %} {% if discounted_total %}
+          <li
+            class="list-group-item d-flex justify-content-between bg-body-tertiary"
+          >
+            <div class="text-success">
+              <h6 class="my-0">プロモーションコード</h6>
+              <small>{{ promo.code }}</small>
+            </div>
+
+            <span class="text-success">-{{ promo.discount }}</span>
+          </li>
+
+          <li class="list-group-item d-flex justify-content-between">
+            <span>合計</span><strong>¥{{ discounted_total }}</strong>
+          </li>
+          {% else %}
+          <li class="list-group-item d-flex justify-content-between">
+            <span>合計</span> <strong>¥{{ total_price }}</strong>
+          </li>
+          {% endif %}
+        </ul>
+        <form
+          class="card p-2"
+          method="POST"
+          action="{% url 'promo_code:promo_code' %}"
+        >
+          {% csrf_token %}
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              name="code"
+              placeholder="プロモーションコード"
+            />
+            <button type="submit" class="btn btn-secondary">適用</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-7 col-lg-8">
+        <h4 class="mb-3">請求先情報</h4>
+        <form
+          class="needs-validation"
+          novalidate
+          method="POST"
+          action="{% url 'order:order' %}"
+        >
+          {% csrf_token %} {% if form and form.non_field_errors %}
+          <div class="alert alert-danger" role="alert">
+            {{ form.non_field_errors }}
+          </div>
+          {% endif %}
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">姓</label>
+              <input
+                type="text"
+                class="form-control {% if form and form.last_name.errors %}is-invalid{% endif %}"
+                id="firstName"
+                placeholder="山田"
+                name="last_name"
+                value="{% if form %}{{ form.last_name.value|default:'' }}{% endif %}"
+                required
+              />
+              {% if form and form.last_name.errors %}
+              <div class="invalid-feedback d-block">
+                {{ form.last_name.errors }}
+              </div>
+              {% endif %}
+            </div>
+            <div class="col-sm-6">
+              <label for="lastName" class="form-label">名</label>
+              <input
+                type="text"
+                class="form-control {% if form and form.first_name.errors %}is-invalid{% endif %}"
+                id="lastName"
+                placeholder="梟"
+                name="first_name"
+                value="{% if form %}{{ form.first_name.value|default:'' }}{% endif %}"
+                required
+              />
+              {% if form and form.first_name.errors %}
+              <div class="invalid-feedback d-block">
+                {{ form.first_name.errors }}
+              </div>
+              {% endif %}
+            </div>
+            <div class="col-12">
+              <label for="username" class="form-label">ユーザー名</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">@</span>
+                <input
+                  type="text"
+                  class="form-control {% if form and form.user_name.errors %}is-invalid{% endif %}"
+                  id="username"
+                  placeholder="Username"
+                  name="user_name"
+                  value="{% if form %}{{ form.user_name.value|default:'' }}{% endif %}"
+                  required
+                />
+                {% if form and form.user_name.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ form.user_name.errors }}
+                </div>
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-12">
+              <label for="email" class="form-label"
+                >メールアドレス <span class="text-body-secondary"></span
+              ></label>
+              <input
+                type="email"
+                class="form-control {% if form and form.email.errors %}is-invalid{% endif %}"
+                id="email"
+                placeholder="you@example.com"
+                name="email"
+                value="{% if form %}{{ form.email.value|default:'' }}{% endif %}"
+                required
+              />
+              {% if form and form.email.errors %}
+              <div class="invalid-feedback d-block">
+                {{ form.email.errors }}
+              </div>
+              {% endif %}
+            </div>
+            <div class="col-12">
+              <label for="zip" class="form-label">郵便番号</label>
+              <input
+                type="text"
+                class="form-control {% if form and form.zip_code.errors %}is-invalid{% endif %}"
+                id="zip"
+                name="zip_code"
+                placeholder="123-4567"
+                value="{% if form %}{{ form.zip_code.value|default:'' }}{% endif %}"
+                required
+              />
+              {% if form and form.zip_code.errors %}
+              <div class="invalid-feedback d-block">
+                {{ form.zip_code.errors }}
+              </div>
+              {% endif %}
+            </div>
+            <div class="col-12">
+              <label for="prefecture" class="form-label">都道府県</label>
+              <input
+                type="text"
+                class="form-control {% if form and form.prefecture.errors %}is-invalid{% endif %}"
+                id="prefecture"
+                name="prefecture"
+                placeholder="---------"
+                value="{% if form %}{{ form.prefecture.value|default:'' }}{% endif %}"
+                required
+              />
+              {% if form and form.prefecture.errors %}
+              <div class="invalid-feedback d-block">
+                {{ form.prefecture.errors }}
+              </div>
+              {% endif %}
+            </div>
+            <div class="col-12">
+              <label for="city" class="form-label">市区町村</label>
+              <input
+                type="text"
+                class="form-control {% if form and form.city.errors %}is-invalid{% endif %}"
+                id="city"
+                name="city"
+                placeholder="〇〇市〇〇区〇〇町"
+                value="{% if form %}{{ form.city.value|default:'' }}{% endif %}"
+                required
+              />
+              {% if form and form.city.errors %}
+              <div class="invalid-feedback d-block">{{ form.city.errors }}</div>
+              {% endif %}
+            </div>
+            <div class="col-12">
+              <label for="street_address" class="form-label"
+                >丁目・番地・号</label
+              >
+              <input
+                type="text"
+                class="form-control {% if form and form.street_address.errors %}is-invalid{% endif %}"
+                id="street_address"
+                name="street_address"
+                placeholder="1-2-3"
+                value="{% if form %}{{ form.street_address.value|default:'' }}{% endif %}"
+                required
+              />
+              {% if form and form.street_address.errors %}
+              <div class="invalid-feedback d-block">
+                {{ form.street_address.errors }}
+              </div>
+              {% endif %}
+            </div>
+            <div class="col-12">
+              <label for="building_name" class="form-label"
+                >建物名 / 部屋番号</label
+              >
+              <input
+                type="text"
+                class="form-control {% if form and form.building_name.errors %}is-invalid{% endif %}"
+                id="building_name"
+                name="building_name"
+                placeholder="〇〇マンション101号"
+                value="{% if form %}{{ form.building_name.value|default:'' }}{% endif %}"
+                required
+              />
+              {% if form and form.building_name.errors %}
+              <div class="invalid-feedback d-block">
+                {{ form.building_name.errors }}
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          <hr class="my-4" />
+          <h4 class="mb-3">クレジットカード情報</h4>
+
+          <div class="row gy-3">
+            <div class="col-md-6">
+              <label for="cc-name" class="form-label">名義人</label>
+              <input
+                type="text"
+                class="form-control {% if form and form.card_holder.errors %}is-invalid{% endif %}"
+                id="cc-name"
+                name="card_holder"
+                placeholder="FUKURO YAMADA"
+                value="{% if form %}{{ form.card_holder.value|default:'' }}{% endif %}"
+                required
+              />
+              {% if form and form.card_holder.errors %}
+              <div class="invalid-feedback d-block">
+                {{ form.card_holder.errors }}
+              </div>
+              {% endif %}
+            </div>
+            <div class="col-md-6">
+              <label for="cc-number" class="form-label">カード番号</label>
+              <input
+                type="text"
+                class="form-control {% if form and form.card_number.errors %}is-invalid{% endif %}"
+                id="cc-number"
+                name="card_number"
+                placeholder="例：1234 5678 9012 3456"
+                value="{% if form %}{{ form.card_number.value|default:'' }}{% endif %}"
+                required
+              />
+              {% if form and form.card_number.errors %}
+              <div class="invalid-feedback d-block">
+                {{ form.card_number.errors }}
+              </div>
+              {% endif %}
+            </div>
+            <div class="col-md-3">
+              <label for="cc-expiration" class="form-label">有効期限</label>
+              <input
+                type="text"
+                class="form-control {% if form and form.expiration_date.errors %}is-invalid{% endif %}"
+                id="cc-expiration"
+                name="expiration_date"
+                placeholder="例：2026/12/31"
+                value="{% if form %}{{ form.expiration_date.value|default:'' }}{% endif %}"
+                required
+              />
+              {% if form and form.expiration_date.errors %}
+              <div class="invalid-feedback d-block">
+                {{ form.expiration_date.errors }}
+              </div>
+              {% endif %}
+            </div>
+            <div class="col-md-3">
+              <label for="cc-cvv" class="form-label">セキュリティコード</label>
+              <input
+                type="text"
+                class="form-control {% if form and form.cvv.errors %}is-invalid{% endif %}"
+                id="cc-cvv"
+                name="cvv"
+                placeholder="例：123"
+                value="{% if form %}{{ form.cvv.value|default:'' }}{% endif %}"
+                required
+              />
+              {% if form and form.cvv.errors %}
+              <div class="invalid-feedback d-block">{{ form.cvv.errors }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <hr class="my-4" />
+          <button class="w-100 btn btn-primary btn-lg" type="submit">
+            購入する
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>
+<!-- prettier-ignore -->
+{% endblock %}
+<!-- prettier-ignore -->
+{% block extra_js %}
+<script src="{% static 'cart/scripts.js' %}"></script>
+{% endblock %}

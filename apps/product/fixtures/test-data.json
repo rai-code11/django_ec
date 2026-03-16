@@ -1,0 +1,189 @@
+[
+  {
+    "model": "product.Product",
+    "fields": {
+      "id": 1,
+      "name": "カウチソファ Libero(リベロ)",
+      "price": 250800,
+      "image": "sofa_xtl4pe",
+      "code": "SKK: AAAAA",
+      "context": "カウチソファー「Libero(リベロ)」 /幅247(151+96)cm /クッション:ファブリック(布) /モスグレー・ライトグレー・ダークブルー",
+      "created_at": "2025-10-24T00:00:00Z"
+    }
+  },
+  {
+    "model": "product.Product",
+    "fields": {
+      "id": 2,
+      "name": "ダイニングチェア Shell(シェル)",
+      "price": 30800,
+      "image": "char_clhvcq",
+      "code": "SKK: BBBBB",
+      "context": "ダイニングチェア「shell(シェル)」 /幅52cm /本体:ファブリック(布)/脚:スチール /本体:グレー・ダークグレー・ピーコックブルー・ライトモーブ/脚:ブラック",
+      "created_at": "2025-10-23T00:00:00Z"
+    }
+  },
+
+  {
+    "model": "product.Product",
+    "fields": {
+      "id": 3,
+      "name": "デスク STRATA(ストラータ)",
+      "price": 37400,
+      "image": "1014155557_68edf3fdda63d_jffros",
+      "code": "SKK: CCCCC",
+      "context": "デスク「STRATA(ストラータ)」 /幅100cm /天板：セラミック・プリント化粧繊維版/脚部：スチール /天板：石目柄/脚部：ブラック",
+      "created_at": "2025-10-22T00:00:00Z"
+    }
+  },
+
+  {
+    "model": "product.Product",
+    "fields": {
+      "id": 4,
+      "name": "ダイニングテーブル LIN（リン）",
+      "price": 103400,
+      "image": "table_zngni7",
+      "code": "SKK: DDDDD",
+      "context": "ダイニングテーブル「LIN（リン）」 /幅120cm /天板:セラミック/脚:アルミニウム /天板:Roca gray・Stone gray・Snow white/脚:Black・Gray・White",
+      "created_at": "2025-10-21T00:00:00Z"
+    }
+  },
+
+  {
+    "model": "product.Product",
+    "fields": {
+      "id": 5,
+      "name": "ベッド CALM(カーム)",
+      "price": 63800,
+      "image": "bed_k2u9rp",
+      "code": "SKK: EEEEE",
+      "context": "シングルベッド「CALM(カーム)」 /幅98cm /オレフィンシート /GRY・MBR",
+      "created_at": "2025-10-20T00:00:00Z"
+    }
+  },
+  {
+    "model": "product.Product",
+    "fields": {
+      "id": 6,
+      "name": "ペンダントライト Mercero(メルチェロ)",
+      "price": 21780,
+      "image": "light_styadp",
+      "code": "SKK: FFFFF",
+      "context": "照明/ペンダントライト「Mercero(メルチェロ)」 /幅50cm /スチール,木 /ブラウン・ウォールナット・ナチュラル",
+      "created_at": "2025-10-19T00:00:00Z"
+    }
+  },
+  {
+    "model": "product.Product",
+    "fields": {
+      "id": 7,
+      "name": "ラグマット CALM(カーム)",
+      "price": 26504,
+      "image": "mat_widg4r",
+      "code": "SKK: GGGGG",
+      "context": "ラグマット「CALM(カーム)」 /極細ナイロン繊維100%",
+      "created_at": "2025-10-18T00:00:00Z"
+    }
+  },
+  {
+    "model": "product.Product",
+    "fields": {
+      "id": 8,
+      "name": "サイドボード CE",
+      "price": 79800,
+      "image": "cabinet_lharz2",
+      "code": "SKK: HHHHHH",
+      "context": "サイドボード「CE」 /幅119.9cm /天板：Smart NANO®トップ/前板・側板：オレフィンシートorダイヤモンドハイグロスorSmart NANO®トップ/内装：化粧合板/脚：天然木 /ウォールナット・ラスティックオーク・セラミカネロ・セラミカライト・ラスターベージュ・シルキーアッシュ",
+      "created_at": "2025-10-17T00:00:00Z"
+    }
+  },
+  {
+    "model": "cart.Icon",
+    "fields": {
+      "id": 1,
+      "name": "決済アイコン",
+      "image": "cute-owl-illustration-vector-black-260nw-2288387705_npffoh"
+    }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 1,
+      "code": "ghd5jZG",
+      "discount": 1000
+    }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 2,
+      "code": "l39PwBj",
+      "discount": 2000
+    }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 3,
+      "code": "LFnQCT3",
+      "discount": 3000
+    }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 4,
+      "code": "EARV8gj",
+      "discount": 4000
+    }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 5,
+      "code": "l7igMij",
+      "discount": 5000
+    }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 6,
+      "code": "IOgJ5Ql",
+      "discount": 6000
+    }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 7,
+      "code": "otAX9TC",
+      "discount": 7000
+    }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 8,
+      "code": "3rAYRPx",
+      "discount": 8000
+    }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 9,
+      "code": "bhVCXcZ",
+      "discount": 9000
+    }
+  },
+  {
+    "model": "promo_code.PromoCode",
+    "fields": {
+      "id": 10,
+      "code": "w2arMv7",
+      "discount": 10000
+    }
+  }
+]

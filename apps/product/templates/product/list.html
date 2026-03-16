@@ -1,0 +1,57 @@
+{% extends "base_ec.html" %} {% load static %} {% block title %}商品一覧 -
+Modern Chic{% endblock %} {% block extra_css %}
+<link href="{% static 'product_list/styles.css' %}" rel="stylesheet" />
+{% endblock %} {% block content %}
+<!-- Header -->
+<header class="bg-dark py-5">
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center text-white">
+      <h1 class="display-4 fw-bolder">Modern Chic</h1>
+      <h2>モダンインテリアショップ</h2>
+    </div>
+  </div>
+</header>
+<!-- Section -->
+<section class="py-5">
+  <div class="container px-4 px-lg-5 mt-5">
+    <div
+      class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+    >
+      {% for product in product_list %}
+      <div class="col mb-5">
+        <div class="card h-100">
+          <a href="{% url 'product:product_details' product_id=product.id %}">
+            <img
+              class="card-img-top"
+              src="{{ product.list_thumb_url }}"
+              alt="{{ product.name }}"
+          /></a>
+
+          <div class="card-body p-4">
+            <div class="text-center">
+              <h5 class="fw-bolder">{{ product.name }}</h5>
+              ¥{{ product.price }}
+            </div>
+          </div>
+
+          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center">
+              <form
+                method="POST"
+                action="{% url 'cart:add_to_cart' product_id=product.id %}"
+              >
+                {% csrf_token %}
+                <input type="hidden" name="quantity" value="1" />
+                <button class="btn btn-outline-dark mt-auto" type="submit">
+                  Add to cart
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
