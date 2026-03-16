@@ -1,13 +1,7 @@
-{% extends "base_ec.html" %}
-{% load static %}
-
-{% block title %}{{ product.name }} - BEAUTY SALON Y{% endblock %}
-
-{% block extra_css %}
+{% extends "base_ec.html" %} {% load static %} {% block title %}{{ product.name
+}} - Modern Chic{% endblock %} {% block extra_css %}
 <link href="{% static 'product_details/styles.css' %}" rel="stylesheet" />
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block content %}
 <!-- Product section -->
 <section class="py-5">
   <div class="container px-4 px-lg-5 my-5">
@@ -43,10 +37,7 @@
               style="max-width: 3rem"
             />
 
-            <button
-              class="btn btn-outline-dark flex-shrink-0"
-              type="submit"
-            >
+            <button class="btn btn-outline-dark flex-shrink-0" type="submit">
               <i class="bi-cart-fill me-1"></i>
               Add to cart
             </button>
@@ -66,14 +57,12 @@
       {% for product in related_products %}
       <div class="col mb-5">
         <div class="card h-100">
-          <a
-            href="{% url 'product:product_details' product_id=product.id %}"
-          >
+          <a href="{% url 'product:product_details' product_id=product.id %}">
             <img
               class="card-img-top"
               src="{{ product.list_thumb_url }}"
               alt="{{ product.name }}"
-            /></a>
+          /></a>
           <div class="card-body p-4">
             <div class="text-center">
               <h5 class="fw-bolder">{{ product.name }}</h5>

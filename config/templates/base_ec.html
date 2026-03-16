@@ -8,7 +8,7 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>{% block title %}BEAUTY SALON Y{% endblock %}</title>
+    <title>{% block title %}Modern Chic{% endblock %}</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
       rel="stylesheet"
@@ -19,7 +19,9 @@
     />
     {% block extra_css %}{% endblock %}
   </head>
-  <body class="d-flex flex-column min-vh-100 {% block body_extra %}{% endblock %}">
+  <body
+    class="d-flex flex-column min-vh-100 {% block body_extra %}{% endblock %}"
+  >
     {% block messages %} {% for message in messages %}
     <div class="alert alert-{{ message.tags }}" role="alert">
       <span>{{ message }}</span>
@@ -30,7 +32,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container px-4 px-lg-5">
         <a class="navbar-brand" href="{% url 'product:product_list' %}"
-          >BEAUTY SALON Y</a
+          >Modern Chic</a
         >
         <button
           class="navbar-toggler"
@@ -61,15 +63,13 @@
       </div>
     </nav>
 
-    <div class="flex-grow-1">
-      {% block content %}{% endblock %}
-    </div>
+    <div class="flex-grow-1">{% block content %}{% endblock %}</div>
 
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
         <p class="m-0 text-center text-white">
-          Copyright &copy; BEAUTY SALON Y 2023
+          Copyright &copy; Modern Chic 2023
         </p>
       </div>
     </footer>
